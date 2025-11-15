@@ -34,7 +34,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			explicitFolders = (
 				Enums,
-				Logins,
 			);
 			path = Stylist;
 			sourceTree = "<group>";

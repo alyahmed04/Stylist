@@ -1,0 +1,25 @@
+//
+//  User.swift
+//  LoginApp
+//
+//  User model representing authenticated users
+//
+
+import Foundation
+
+struct User: Codable, Identifiable {
+    let id: String
+    let email: String
+    let name: String
+    
+    // Optional fields for extended user info
+    var profileImageURL: String?
+    var createdAt: Date?
+    
+    init(id: String, email: String, name: String) {
+        self.id = id
+        self.email = email
+        self.name = name
+    }
+}
+
