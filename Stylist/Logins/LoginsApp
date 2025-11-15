@@ -1,0 +1,21 @@
+//
+//  LoginsApp.swift
+//  Logins
+//
+//  Main application entry point
+//
+
+import SwiftUI
+
+@main
+struct LoginsApp: App {
+    // Create a single instance of AuthViewModel to be shared across the app
+    @StateObject private var authViewModel = AuthViewModel()
+    
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environmentObject(authViewModel)
+        }
+    }
+}
