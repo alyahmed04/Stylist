@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var authVM = AuthViewModel()
     var body: some View {
-        VStack {
-            Closet()
-        }
-        .padding()
+        Group {
+            if authVM.isAuthenticated {
+                Closet()
+            }
+            
+            else {
+                LoginView()
+            }
+        }.environmentObject(authVM)
     }
 }
 
