@@ -63,8 +63,10 @@ struct ClosetRow: View {
                 Text("Fit: \(clothingItem.fit.rawValue)").font(.headline)
                 Text("Color: \(clothingItem.mainColor.rawValue)").font(.headline)
             if(clothingItem.notes != nil){
-                Text("Notes: \(clothingItem.notes!)").font(.headline)
-                Spacer()
+                if(clothingItem.notes?.isEmpty == false){
+                    Text("Notes: \(clothingItem.notes!)").font(.headline)
+                    Spacer()
+                }
             }
             HStack{
                 

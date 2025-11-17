@@ -60,10 +60,10 @@ struct AddItem: View {
             Section("fit"){
                 List{
                     Picker("Task Status: ", selection: $fit) {
-                        Text("Not Started").tag(Fit.regular)
-                        Text("In Progress").tag(Fit.relaxed)
-                        Text("Completed").tag(Fit.oversized)
-                        Text("Completed").tag(Fit.slim)
+                        Text("Regular").tag(Fit.regular)
+                        Text("Relaxed").tag(Fit.relaxed)
+                        Text("Oversized").tag(Fit.oversized)
+                        Text("Slim").tag(Fit.slim)
                     }
                     .pickerStyle(.menu)
                 }
@@ -74,12 +74,12 @@ struct AddItem: View {
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
                 List{
-                    Picker("Task Status: ", selection: $category) {
-                        Text("Not Started").tag(ClothingCategory.top)
-                        Text("In Progress").tag(ClothingCategory.outerwear)
-                        Text("Completed").tag(ClothingCategory.bottom)
-                        Text("Completed").tag(ClothingCategory.footwear)
-                        Text("Completed").tag(ClothingCategory.accessory)
+                    Picker("Clothing Category: ", selection: $category) {
+                        Text("Top").tag(ClothingCategory.top)
+                        Text("Outerwear").tag(ClothingCategory.outerwear)
+                        Text("Bottom").tag(ClothingCategory.bottom)
+                        Text("Footwear").tag(ClothingCategory.footwear)
+                        Text("accessory").tag(ClothingCategory.accessory)
                     }
                     .pickerStyle(.menu)
                 }
@@ -90,16 +90,16 @@ struct AddItem: View {
                 //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
                 List{
                     Picker("Main Color: ", selection: $mainColor) {
-                        Text("Not Started").tag(ColorFamily.white)
-                        Text("Not Started").tag(ColorFamily.black)
-                        Text("Not Started").tag(ColorFamily.blue)
-                        Text("Not Started").tag(ColorFamily.brown)
-                        Text("Not Started").tag(ColorFamily.green)
-                        Text("Not Started").tag(ColorFamily.orange)
-                        Text("Not Started").tag(ColorFamily.pink)
-                        Text("Not Started").tag(ColorFamily.purple)
-                        Text("Not Started").tag(ColorFamily.red)
-                        Text("Not Started").tag(ColorFamily.yellow)
+                        Text("White").tag(ColorFamily.white)
+                        Text("Black").tag(ColorFamily.black)
+                        Text("Blue").tag(ColorFamily.blue)
+                        Text("Brown").tag(ColorFamily.brown)
+                        Text("Green").tag(ColorFamily.green)
+                        Text("Orange").tag(ColorFamily.orange)
+                        Text("Pink").tag(ColorFamily.pink)
+                        Text("Purple").tag(ColorFamily.purple)
+                        Text("Red").tag(ColorFamily.red)
+                        Text("Yellow").tag(ColorFamily.yellow)
                     }
                     .pickerStyle(.menu)
                 }
@@ -109,19 +109,24 @@ struct AddItem: View {
                 //Gotten from TA FAQ
                 List{
                     Picker("Accent Color: ", selection: $accentColor) {
-                        Text("Not Started").tag(ColorFamily.white)
-                        Text("Not Started").tag(ColorFamily.black)
-                        Text("Not Started").tag(ColorFamily.blue)
-                        Text("Not Started").tag(ColorFamily.brown)
-                        Text("Not Started").tag(ColorFamily.green)
-                        Text("Not Started").tag(ColorFamily.orange)
-                        Text("Not Started").tag(ColorFamily.pink)
-                        Text("Not Started").tag(ColorFamily.purple)
-                        Text("Not Started").tag(ColorFamily.red)
-                        Text("Not Started").tag(ColorFamily.yellow)
+                        Text("Black").tag(ColorFamily.black)
+                        Text("Blue").tag(ColorFamily.blue)
+                        Text("Brown").tag(ColorFamily.brown)
+                        Text("Green").tag(ColorFamily.green)
+                        Text("Orange").tag(ColorFamily.orange)
+                        Text("Pink").tag(ColorFamily.pink)
+                        Text("Purple").tag(ColorFamily.purple)
+                        Text("Red").tag(ColorFamily.red)
+                        Text("Yellow").tag(ColorFamily.yellow)
                     }
                     .pickerStyle(.menu)
                 }
+            }
+            
+            Section("Brand"){
+                //Learned from Apple Picker Documentation
+                //https://developer.apple.com/documentation/SwiftUI/Picker
+                TextField("Brand: ", text: $brand)
             }
             
             Section("Notes"){
@@ -159,7 +164,7 @@ struct AddItem: View {
                 
                 //.alert and message functions (with use of isPresented field triggered by a button) for forms was learned in tutorial at "hacker with swift: Presenting an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/presenting-an-alert
-            }.alert("\(popup)", isPresented: $clicked){
+        }.alert("\(popup)", isPresented: $clicked){
                 
                 //Having a button in alert was learned in tutorial at "hacker with swift: how to show an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/how-to-show-an-alert
