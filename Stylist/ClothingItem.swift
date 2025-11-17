@@ -48,26 +48,31 @@ final class ClothingItem: Identifiable {
     @Attribute(.unique) var id: UUID
     var name: String
     var category: ClothingCategory
-    var color: ColorFamily
+    var mainColor: ColorFamily
+    var accentColor: ColorFamily?
     var fit: Fit
     var notes: String?
-    var isFavorite: Bool
+    var brand: String
+    var isFavorite: Bool = false
 
     init(
         id: UUID = UUID(),
         name: String,
         category: ClothingCategory,
-        color: ColorFamily,
+        mainColor: ColorFamily,
+        accentColor: ColorFamily? = nil,
         fit: Fit,
-        notes: String? = nil,
-        isFavorite: Bool = false
+        notes: String? = nil, brand: String,
+        isFavorite: Bool
     ) {
         self.id = id
         self.name = name
         self.category = category
-        self.color = color
+        self.mainColor = mainColor
+        self.accentColor = accentColor
         self.fit = fit
         self.notes = notes
         self.isFavorite = isFavorite
+        self.brand = brand
     }
 }

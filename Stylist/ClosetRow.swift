@@ -61,7 +61,7 @@ struct ClosetRow: View {
             }
             Text(clothingItem.name).font(.headline)
                 Text("Fit: \(clothingItem.fit.rawValue)").font(.headline)
-                Text("Color: \(clothingItem.color.rawValue)").font(.headline)
+                Text("Color: \(clothingItem.mainColor.rawValue)").font(.headline)
             if(clothingItem.notes != nil){
                 Text("Notes: \(clothingItem.notes!)").font(.headline)
                 Spacer()

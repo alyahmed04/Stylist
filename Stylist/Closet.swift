@@ -26,6 +26,15 @@ struct Closet: View {
                     //https://www.hackingwithswift.com/quick-start/swiftui/how-to-adjust-list-row-separator-visibility-and-color
                     ClosetRow(clothingItem: clothingItem).padding(.vertical).frame(maxWidth: .infinity, alignment: .center).listRowSeparator(.automatic).listRowSeparatorTint(.black)
             }
+            }.navigationTitle("Closet").toolbar{
+                NavigationLink{
+                    AddItem()
+                } label: {
+                    HStack{
+                        Image(systemName: "plus")
+                        Text("Add Item")
+                    }
+                }.foregroundStyle(.blue)
             }
             
             
