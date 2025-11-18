@@ -12,13 +12,15 @@ struct ContentView: View {
     var body: some View {
         Group {
             if authVM.isAuthenticated {
-                Closet()
+                MainTabView()
             }
             
             else {
                 LoginView()
             }
-        }.environmentObject(authVM)
+        }
+        .environmentObject(authVM)
+        .environment(modelData)
     }
 }
 
