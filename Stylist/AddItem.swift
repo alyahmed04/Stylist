@@ -28,8 +28,6 @@ struct AddItem: View {
     @State private var favorite: Bool = false
     
     
-
-    
     @State private var cleanedName: String = ""
     @State private var cleanedBrand: String = ""
     
@@ -57,9 +55,9 @@ struct AddItem: View {
                 //https://developer.apple.com/documentation/swiftui/textfield
                 TextField("Enter Name", text: $name)
             }
-            Section("fit"){
+            Section("Fit"){
                 List{
-                    Picker("Task Status: ", selection: $fit) {
+                    Picker("Fit: ", selection: $fit) {
                         Text("Regular").tag(Fit.regular)
                         Text("Relaxed").tag(Fit.relaxed)
                         Text("Oversized").tag(Fit.oversized)
@@ -126,19 +124,19 @@ struct AddItem: View {
             Section("Brand"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
-                TextField("Brand: ", text: $brand)
+                TextField("Enter Brand", text: $brand)
             }
             
             Section("Notes"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
-                TextField("Item Notes:", text: $notes)
+                TextField("Enter Item Notes", text: $notes)
             }
             
             Section("Favorite Item"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
-                Toggle("Favorite Item:", isOn: $favorite)
+                Toggle("Favorite Item", isOn: $favorite)
             }
                 
                 Section{

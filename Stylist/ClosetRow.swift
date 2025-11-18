@@ -75,7 +75,8 @@ struct ClosetRow: View {
                 //https://www.hackingwithswift.com/books/ios-swiftui/showing-multiple-options-with-confirmationdialog
                 //https://developer.apple.com/documentation/swiftui/view/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:)-9ibgk
                 
-                Spacer()
+                
+                
                 Button("Remove", systemImage: "trash"){
                    isConfirming = true
                 }.foregroundColor(.white).tint(.red).buttonStyle(.glassProminent).confirmationDialog(
@@ -95,8 +96,18 @@ struct ClosetRow: View {
                 } message: {
                     Text("Are you sure you want to remove?")
                 }
-                
                 Spacer()
+                Spacer()
+                NavigationLink{
+                   // EditTask(task: $modelData.tasks[taskIndex], taskCopy: task)
+                }   label:{
+                    HStack{
+                        Image(systemName: "pencil").foregroundStyle(.blue)
+                        Text("edit").foregroundStyle(.blue)
+                    }
+                }.buttonStyle(.bordered).frame(maxWidth: 80)
+                
+                
             }
             
                         
