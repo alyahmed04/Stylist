@@ -7,19 +7,28 @@
 
 import Foundation
 
-struct User: Codable, Identifiable {
+struct StyleQuiz: Codable {
+    var style: String
+    var fit: String
+    var color: String
+    var shoppingFreq: String
+}
+
+
+struct User: Identifiable {
     let id: String
     let email: String
     let name: String
+    let styleQuiz: StyleQuiz
+    var closet: [ClothingItem] = []
     
-    // Optional fields for extended user info
-    var profileImageURL: String?
-    var createdAt: Date?
     
-    init(id: String, email: String, name: String) {
+    init(id: String, email: String, name: String, styleQuiz: StyleQuiz) {
         self.id = id
         self.email = email
         self.name = name
+        self.styleQuiz = styleQuiz
     }
 }
+
 
