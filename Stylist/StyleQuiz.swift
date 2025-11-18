@@ -10,6 +10,7 @@ import SwiftUI
 
 struct StyleQuizView: View {
     
+    @State private var modelData = ModelData()
     @State private var style = ""
     @State private var fit = ""
     @State private var color = ""
@@ -65,7 +66,18 @@ struct StyleQuizView: View {
                 // Submit button
                 Button {
                     print("Saved quiz results!")
-                    //save response to Firebase
+                    //create user
+                    if var user = modelData.currentUser {
+                        user.styleQuiz = StyleQuiz(
+                            style: style,
+                            fit: fit,
+                            color: color,
+                            shoppingFreq: shoppingFreq
+                        )
+
+                        modelData.currentUser = user
+                    }
+                    
                 } label: {
                     Text("Finish")
                         .font(.headline)
@@ -98,4 +110,8 @@ struct QuestionPicker: View {
             }
         }
     }
+}
+
+#Preview {
+    StyleQuizView()
 }

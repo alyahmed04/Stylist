@@ -14,7 +14,12 @@ import Foundation
 @Observable class ModelData {
     var clothingItems: [ClothingItem] = [ClothingItem(id: UUID(), name: "Uniqlo White Shirt", category: .top, mainColor: .white, fit: .oversized, notes: "This shirt is an XL size", brand: "Uniqlo", isFavorite: true), ClothingItem(id: UUID(), name: "Uniqlo jacket", category: .outerwear, mainColor: .black, fit: .oversized, notes: "This a black coat", brand: "Uniqlo", isFavorite: true), ClothingItem(id: UUID(), name: "Abercrombie baggy jeans", category: .bottom, mainColor: .blue, fit: .oversized, notes: nil, brand: "Abercrombie", isFavorite: false), ClothingItem(id: UUID(), name: "Yankees baseball hat", category: .accessory, mainColor: .black, fit: .regular, notes: nil, brand: "abercrombie", isFavorite: true), ClothingItem(id: UUID(), name: "Nike AirMax", category: .footwear, mainColor: .brown, fit: .regular, notes: "This is a brown shoe with a cream sole", brand: "Nike", isFavorite: true)]
     
+    var currentUser: User?
+    
+    
 }
+
+
 
 
 

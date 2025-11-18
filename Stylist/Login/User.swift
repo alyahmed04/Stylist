@@ -15,19 +15,19 @@ struct StyleQuiz: Codable {
 }
 
 
-struct User: Identifiable {
+struct User: Codable, Identifiable {
     let id: String
     let email: String
     let name: String
-    let styleQuiz: StyleQuiz
+    var styleQuiz: StyleQuiz
     var closet: [ClothingItem] = []
     
     
-    init(id: String, email: String, name: String, styleQuiz: StyleQuiz) {
+    init(id: String, email: String, name: String, styleQuiz: StyleQuiz? = nil) {
         self.id = id
         self.email = email
         self.name = name
-        self.styleQuiz = styleQuiz
+        self.styleQuiz = styleQuiz!
     }
 }
 

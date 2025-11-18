@@ -44,6 +44,8 @@ enum AuthError: LocalizedError {
 class AuthViewModel: ObservableObject {
     // MARK: - Published Properties
     
+    @State private var modelData = ModelData()
+    
     @Published var isAuthenticated = false {
         didSet {
             UserDefaults.standard.set(isAuthenticated, forKey: "isLoggedIn")
@@ -138,13 +140,13 @@ class AuthViewModel: ObservableObject {
             
             // Mock registration - replace with real API
             // In real app, check if email already exists
-            let user = User(
+            modelData.currentUser = User(
                 id: UUID().uuidString,
                 email: email,
-                name: name
+                name: name,
             )
             
-            self.currentUser = user
+            self.currentUser = modelData.currentUser!
             self.isAuthenticated = true
             self.startSession()
             self.isLoading = false
