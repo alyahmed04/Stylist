@@ -1,11 +1,10 @@
 //
-//  AddTask.swift
-//  TaskTrackerApp
+//  EditItem.swift
+//  Stylist
 //
 //
-//  Primary Device: iPhone 17
 //
-//  Created by Aly Ahmed on 10/9/25.
+//  Created by Aly Ahmed on 11/20/25.
 //
 
 import SwiftUI
@@ -27,7 +26,7 @@ struct EditItem: View {
     @State private var cleanedBrand: String = ""
     
     
-    //If the user has a valid title thats not spaces and the user enters a valid estimated time then a success message is show otherwise an error is shown
+    
     var popup: String {
         cleanedName.isEmpty == false && cleanedBrand.isEmpty == false ? "Sucess!" : "Error!"
     }
@@ -139,8 +138,7 @@ struct EditItem: View {
                 
                 Section{
                     
-                    //If the conditions of the form is met such as a valid title is typed and a valid estimated time is entered then the task will be added
-                    //Otherwise it won't. No matter the condition clicked is toggled to display the form alert message
+                   
                     Button("Save changes") {
                         cleanedName = clothingItemCopy.name.trimmingCharacters(in: .whitespaces)
                         cleanedBrand = clothingItemCopy.brand.trimmingCharacters(in: .whitespaces)
