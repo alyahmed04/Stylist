@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 struct StyleQuiz: Codable {
     var style: String
@@ -14,13 +15,41 @@ struct StyleQuiz: Codable {
     var shoppingFreq: String
 }
 
+//Learned how to make classes confirm to encodable and decodable from
+//https://www.hackingwithswift.com/forums/swiftui/can-someone-explain-my-mistake-here/24252
+@Model
+final class User: Identifiable, Decodable, Encodable{
+    
+    
+    enum CodingKeys: CodingKey {
+           case email
+           case id
+           case name
+           case styleQuiz
+           case closet
+       }
+    
 
-struct User: Codable, Identifiable {
-    let id: String
-    let email: String
-    let name: String
+    //Learned how to make classes confirm to encodable and decodable from
+    //https://www.hackingwithswift.com/forums/swiftui/can-someone-explain-my-mistake-here/24252
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        email = try container.decode(String.self, forKey: .email)
+        styleQuiz = try container.decode(StyleQuiz.self, forKey: .styleQuiz)
+        closet = try container.decode([ClothingItem].self, forKey: .closet)
+        id = try container.decode(String.self, forKey: .id)
+        
+    }
+    
+
+    var id: String
+    var email: String
+    var name: String
     var styleQuiz: StyleQuiz
-    var closet: [ClothingItem] = []
+    
+    @Relationship(deleteRule: .cascade, inverse: \ClothingItem.id)
+    var closet = [ClothingItem]()
     
     
     init(id: String, email: String, name: String, styleQuiz: StyleQuiz? = nil) {
@@ -29,6 +58,19 @@ struct User: Codable, Identifiable {
         self.name = name
         self.styleQuiz = styleQuiz!
     }
+    
+    //Learned how to make classes confirm to encodable and decodable from
+    //https://www.hackingwithswift.com/forums/swiftui/can-someone-explain-my-mistake-here/24252
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(email, forKey: .email)
+        try container.encode(styleQuiz, forKey: .styleQuiz)
+        try container.encode(closet, forKey: .closet)
+        try container.encode(id, forKey: .id)
+    }
+    
+    
 }
 
 

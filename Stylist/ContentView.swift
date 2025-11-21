@@ -8,22 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var authVM = AuthViewModel()
     var body: some View {
-        Group {
-            if authVM.isAuthenticated {
-                MainTabView()
-            }
-            
-            else {
-                LoginView()
-            }
-        }
-        .environmentObject(authVM)
-        .environment(modelData)
+        Closet()
     }
 }
 
 #Preview {
+    //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
+    //https://developer.apple.com/tutorials/swiftui/handling-user-input
     ContentView().environment(ModelData())
 }

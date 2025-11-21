@@ -10,22 +10,17 @@
 
 import SwiftUI
 
-struct AddItem: View {
+struct EditItem: View {
     @State private var clicked: Bool = false
     
-    //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
-    //https://developer.apple.com/tutorials/swiftui/handling-user-input
-    @Environment(ModelData.self) var modelData
    
     
-    @State private var name: String = ""
-    @State private var fit: Fit? = nil
-    @State private var category: ClothingCategory? = nil
-    @State private var mainColor: ColorFamily? = nil
-    @State private var accentColor: ColorFamily? = ColorFamily.none
-    @State private var brand: String = ""
-    @State private var notes: String = ""
-    @State private var favorite: Bool = false
+    //Learned from Apple Binding and TA
+    //https://developer.apple.com/documentation/swiftui/bindable
+    @Binding var clothingItem: ClothingItem
+    
+    //Used as a copy to show current values and to enter new values. The purpose of this is to only make active changes when the user saves them not by entering them into the fields.
+    @State var clothingItemCopy: ClothingItem
     
     
     @State private var cleanedName: String = ""
@@ -34,7 +29,7 @@ struct AddItem: View {
     
     //If the user has a valid title thats not spaces and the user enters a valid estimated time then a success message is show otherwise an error is shown
     var popup: String {
-        cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil ? "Sucess!" : "Error!"
+        cleanedName.isEmpty == false && cleanedBrand.isEmpty == false ? "Sucess!" : "Error!"
     }
     
     //Learned from Apple dismiss documentation and first discovered in bindable documentation
@@ -53,11 +48,11 @@ struct AddItem: View {
             Section("Name"){
                 //TextField learned from apple documentation
                 //https://developer.apple.com/documentation/swiftui/textfield
-                TextField("Enter Name", text: $name)
+                TextField("Enter Name", text: $clothingItemCopy.name)
             }
             Section("Fit"){
                 List{
-                    Picker("Fit: ", selection: $fit) {
+                    Picker("Fit: ", selection: $clothingItemCopy.fit) {
                         Text("Regular").tag(Fit.regular)
                         Text("Relaxed").tag(Fit.relaxed)
                         Text("Oversized").tag(Fit.oversized)
@@ -72,7 +67,7 @@ struct AddItem: View {
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
                 List{
-                    Picker("Clothing Category: ", selection: $category) {
+                    Picker("Clothing Category: ", selection: $clothingItemCopy.category) {
                         Text("Top").tag(ClothingCategory.top)
                         Text("Outerwear").tag(ClothingCategory.outerwear)
                         Text("Bottom").tag(ClothingCategory.bottom)
@@ -87,8 +82,9 @@ struct AddItem: View {
                 //Learned from hacking with swift
                 //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
                 List{
-                    Picker("Main Color: ", selection: $mainColor) {
+                    Picker("Main Color: ", selection: $clothingItemCopy.mainColor) {
                         Text("White").tag(ColorFamily.white)
+                        Text("None").tag(ColorFamily.none)
                         Text("Black").tag(ColorFamily.black)
                         Text("Blue").tag(ColorFamily.blue)
                         Text("Brown").tag(ColorFamily.brown)
@@ -106,9 +102,8 @@ struct AddItem: View {
             Section("Accent Color"){
                 //Gotten from TA FAQ
                 List{
-                    Picker("Accent Color: ", selection: $accentColor) {
+                    Picker("Accent Color: ", selection: $clothingItemCopy.accentColor) {
                         Text("None").tag(ColorFamily.none)
-                        Text("White").tag(ColorFamily.white)
                         Text("Black").tag(ColorFamily.black)
                         Text("Blue").tag(ColorFamily.blue)
                         Text("Brown").tag(ColorFamily.brown)
@@ -118,6 +113,7 @@ struct AddItem: View {
                         Text("Purple").tag(ColorFamily.purple)
                         Text("Red").tag(ColorFamily.red)
                         Text("Yellow").tag(ColorFamily.yellow)
+                        Text("White").tag(ColorFamily.white)
                     }
                     .pickerStyle(.menu)
                 }
@@ -126,19 +122,19 @@ struct AddItem: View {
             Section("Brand"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
-                TextField("Enter Brand", text: $brand)
+                TextField("Enter Brand", text: $clothingItemCopy.brand)
             }
             
             Section("Notes"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
-                TextField("Enter Item Notes", text: $notes)
+                TextField("Enter Item Notes", text: $clothingItemCopy.notes)
             }
             
             Section("Favorite Item"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
-                Toggle("Favorite Item", isOn: $favorite)
+                Toggle("Favorite Item", isOn: $clothingItemCopy.isFavorite)
             }
                 
                 Section{
@@ -146,12 +142,18 @@ struct AddItem: View {
                     //If the conditions of the form is met such as a valid title is typed and a valid estimated time is entered then the task will be added
                     //Otherwise it won't. No matter the condition clicked is toggled to display the form alert message
                     Button("Save changes") {
-                        cleanedName = name.trimmingCharacters(in: .whitespaces)
-                        cleanedBrand = brand.trimmingCharacters(in: .whitespaces)
-                        let cleanedNotes = notes.trimmingCharacters(in: .whitespaces)
-                        if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil){
-                            let clothingItem = ClothingItem(name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand, isFavorite: favorite)
-                            modelData.clothingItems.append(clothingItem)
+                        cleanedName = clothingItemCopy.name.trimmingCharacters(in: .whitespaces)
+                        cleanedBrand = clothingItemCopy.brand.trimmingCharacters(in: .whitespaces)
+                        let cleanedNotes = clothingItemCopy.notes.trimmingCharacters(in: .whitespaces)
+                        if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false){
+                            clothingItem.name = clothingItemCopy.name
+                            clothingItem.category = clothingItemCopy.category
+                            clothingItem.fit = clothingItemCopy.fit
+                            clothingItem.mainColor = clothingItemCopy.mainColor
+                            clothingItem.accentColor = clothingItemCopy.accentColor
+                            clothingItem.brand = clothingItemCopy.brand
+                            clothingItem.notes = cleanedNotes
+                            clothingItem.isFavorite = clothingItemCopy.isFavorite
                         }
                         clicked.toggle()
                         
@@ -168,14 +170,15 @@ struct AddItem: View {
                 
                 //This button dismisses the page from the navigation stack only if the input by the user is valid and they hit the saved changes button first
                 Button("ok"){
-                    if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil){
+                    
+                    if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false){
                         dismiss()
                     }
                 }
                 //These are potential messages that appear in the popup depending on certain conditions of the form when the user hits "save changes"
             }message: {
                 
-                if(cleanedName.isEmpty == true && cleanedBrand.isEmpty == true && fit == nil && category == nil && mainColor == nil){
+                if(cleanedName.isEmpty == true || cleanedBrand.isEmpty == true){
                     Text("Please fill out fields complete!").font(.title)
                 }
                 else{
@@ -194,5 +197,5 @@ struct AddItem: View {
 #Preview {
     //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
     //https://developer.apple.com/tutorials/swiftui/handling-user-input
-    AddItem().environment(ModelData())
+    //EditItem().environment(ModelData())
 }
