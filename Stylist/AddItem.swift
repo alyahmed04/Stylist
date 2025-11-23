@@ -14,6 +14,7 @@ struct AddItem: View {
     //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
     //https://developer.apple.com/tutorials/swiftui/handling-user-input
     @Environment(ModelData.self) var modelData
+    @EnvironmentObject var authVM: AuthViewModel
    
     
     @State private var name: String = ""
@@ -43,101 +44,101 @@ struct AddItem: View {
     
     var body: some View {
         
-        
-        Form{
-            
-            //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
-            //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
-            Section("Name"){
-                //TextField learned from apple documentation
-                //https://developer.apple.com/documentation/swiftui/textfield
-                TextField("Enter Name", text: $name)
-            }
-            Section("Fit"){
-                List{
-                    Picker("Fit: ", selection: $fit) {
-                        Text("Regular").tag(Fit.regular)
-                        Text("Relaxed").tag(Fit.relaxed)
-                        Text("Oversized").tag(Fit.oversized)
-                        Text("Slim").tag(Fit.slim)
+        if let user = authVM.currentUser {
+            Form{
+                
+                //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
+                //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
+                Section("Name"){
+                    //TextField learned from apple documentation
+                    //https://developer.apple.com/documentation/swiftui/textfield
+                    TextField("Enter Name", text: $name)
+                }
+                Section("Fit"){
+                    List{
+                        Picker("Fit: ", selection: $fit) {
+                            Text("Regular").tag(Fit.regular)
+                            Text("Relaxed").tag(Fit.relaxed)
+                            Text("Oversized").tag(Fit.oversized)
+                            Text("Slim").tag(Fit.slim)
+                        }
+                        .pickerStyle(.menu)
                     }
-                    .pickerStyle(.menu)
+                    
                 }
                 
-            }
-            
-            Section("Category"){
-                //Learned from Apple Picker Documentation
-                //https://developer.apple.com/documentation/SwiftUI/Picker
-                List{
-                    Picker("Clothing Category: ", selection: $category) {
-                        Text("Top").tag(ClothingCategory.top)
-                        Text("Outerwear").tag(ClothingCategory.outerwear)
-                        Text("Bottom").tag(ClothingCategory.bottom)
-                        Text("Footwear").tag(ClothingCategory.footwear)
-                        Text("accessory").tag(ClothingCategory.accessory)
+                Section("Category"){
+                    //Learned from Apple Picker Documentation
+                    //https://developer.apple.com/documentation/SwiftUI/Picker
+                    List{
+                        Picker("Clothing Category: ", selection: $category) {
+                            Text("Top").tag(ClothingCategory.top)
+                            Text("Outerwear").tag(ClothingCategory.outerwear)
+                            Text("Bottom").tag(ClothingCategory.bottom)
+                            Text("Footwear").tag(ClothingCategory.footwear)
+                            Text("accessory").tag(ClothingCategory.accessory)
+                        }
+                        .pickerStyle(.menu)
                     }
-                    .pickerStyle(.menu)
                 }
-            }
-            
-            Section("Main Color"){
-                //Learned from hacking with swift
-                //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
-                List{
-                    Picker("Main Color: ", selection: $mainColor) {
-                        Text("White").tag(ColorFamily.white)
-                        Text("Black").tag(ColorFamily.black)
-                        Text("Blue").tag(ColorFamily.blue)
-                        Text("Brown").tag(ColorFamily.brown)
-                        Text("Green").tag(ColorFamily.green)
-                        Text("Orange").tag(ColorFamily.orange)
-                        Text("Pink").tag(ColorFamily.pink)
-                        Text("Purple").tag(ColorFamily.purple)
-                        Text("Red").tag(ColorFamily.red)
-                        Text("Yellow").tag(ColorFamily.yellow)
+                
+                Section("Main Color"){
+                    //Learned from hacking with swift
+                    //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
+                    List{
+                        Picker("Main Color: ", selection: $mainColor) {
+                            Text("White").tag(ColorFamily.white)
+                            Text("Black").tag(ColorFamily.black)
+                            Text("Blue").tag(ColorFamily.blue)
+                            Text("Brown").tag(ColorFamily.brown)
+                            Text("Green").tag(ColorFamily.green)
+                            Text("Orange").tag(ColorFamily.orange)
+                            Text("Pink").tag(ColorFamily.pink)
+                            Text("Purple").tag(ColorFamily.purple)
+                            Text("Red").tag(ColorFamily.red)
+                            Text("Yellow").tag(ColorFamily.yellow)
+                        }
+                        .pickerStyle(.menu)
                     }
-                    .pickerStyle(.menu)
                 }
-            }
-            
-            Section("Accent Color"){
-                //Gotten from TA FAQ
-                List{
-                    Picker("Accent Color: ", selection: $accentColor) {
-                        Text("None").tag(ColorFamily.none)
-                        Text("White").tag(ColorFamily.white)
-                        Text("Black").tag(ColorFamily.black)
-                        Text("Blue").tag(ColorFamily.blue)
-                        Text("Brown").tag(ColorFamily.brown)
-                        Text("Green").tag(ColorFamily.green)
-                        Text("Orange").tag(ColorFamily.orange)
-                        Text("Pink").tag(ColorFamily.pink)
-                        Text("Purple").tag(ColorFamily.purple)
-                        Text("Red").tag(ColorFamily.red)
-                        Text("Yellow").tag(ColorFamily.yellow)
+                
+                Section("Accent Color"){
+                    //Gotten from TA FAQ
+                    List{
+                        Picker("Accent Color: ", selection: $accentColor) {
+                            Text("None").tag(ColorFamily.none)
+                            Text("White").tag(ColorFamily.white)
+                            Text("Black").tag(ColorFamily.black)
+                            Text("Blue").tag(ColorFamily.blue)
+                            Text("Brown").tag(ColorFamily.brown)
+                            Text("Green").tag(ColorFamily.green)
+                            Text("Orange").tag(ColorFamily.orange)
+                            Text("Pink").tag(ColorFamily.pink)
+                            Text("Purple").tag(ColorFamily.purple)
+                            Text("Red").tag(ColorFamily.red)
+                            Text("Yellow").tag(ColorFamily.yellow)
+                        }
+                        .pickerStyle(.menu)
                     }
-                    .pickerStyle(.menu)
                 }
-            }
-            
-            Section("Brand"){
-                //Learned from Apple Picker Documentation
-                //https://developer.apple.com/documentation/SwiftUI/Picker
-                TextField("Enter Brand", text: $brand)
-            }
-            
-            Section("Notes"){
-                //Learned from Apple Picker Documentation
-                //https://developer.apple.com/documentation/SwiftUI/Picker
-                TextField("Enter Item Notes", text: $notes)
-            }
-            
-            Section("Favorite Item"){
-                //Learned from Apple Picker Documentation
-                //https://developer.apple.com/documentation/SwiftUI/Picker
-                Toggle("Favorite Item", isOn: $favorite)
-            }
+                
+                Section("Brand"){
+                    //Learned from Apple Picker Documentation
+                    //https://developer.apple.com/documentation/SwiftUI/Picker
+                    TextField("Enter Brand", text: $brand)
+                }
+                
+                Section("Notes"){
+                    //Learned from Apple Picker Documentation
+                    //https://developer.apple.com/documentation/SwiftUI/Picker
+                    TextField("Enter Item Notes", text: $notes)
+                }
+                
+                Section("Favorite Item"){
+                    //Learned from Apple Picker Documentation
+                    //https://developer.apple.com/documentation/SwiftUI/Picker
+                    Toggle("Favorite Item", isOn: $favorite)
+                }
                 
                 Section{
                     
@@ -146,7 +147,7 @@ struct AddItem: View {
                         cleanedBrand = brand.trimmingCharacters(in: .whitespaces)
                         let cleanedNotes = notes.trimmingCharacters(in: .whitespaces)
                         if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil){
-                            let clothingItem = ClothingItem(name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand, isFavorite: favorite)
+                            let clothingItem = ClothingItem(userId: "1", name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand, isFavorite: favorite)
                             modelData.clothingItems.append(clothingItem)
                         }
                         clicked.toggle()
@@ -157,7 +158,7 @@ struct AddItem: View {
                 
                 //.alert and message functions (with use of isPresented field triggered by a button) for forms was learned in tutorial at "hacker with swift: Presenting an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/presenting-an-alert
-        }.alert("\(popup)", isPresented: $clicked){
+            }.alert("\(popup)", isPresented: $clicked){
                 
                 //Having a button in alert was learned in tutorial at "hacker with swift: how to show an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/how-to-show-an-alert
@@ -179,6 +180,7 @@ struct AddItem: View {
                 
                 
             }
+        }
             
             
             

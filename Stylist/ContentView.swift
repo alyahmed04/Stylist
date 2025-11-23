@@ -7,14 +7,28 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
+    @EnvironmentObject var authVM: AuthViewModel
+    
     var body: some View {
-        Closet()
+        Group {
+            if authVM.isAuthenticated {
+                // User is logged in - show home screen
+                Closet()
+                    .transition(.move(edge: .trailing))
+            } else {
+                // User is not logged in - show login screen
+                LoginView()
+                    .transition(.move(edge: .leading))
+            }
+        }
+        .animation(.easeInOut, value: authVM.isAuthenticated)
     }
 }
 
 #Preview {
-    //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
-    //https://developer.apple.com/tutorials/swiftui/handling-user-input
-    ContentView().environment(ModelData())
+    ContentView()
+        .environmentObject(AuthViewModel())
 }
+

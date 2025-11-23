@@ -41,10 +41,15 @@ enum AuthError: LocalizedError {
     }
 }
 
+//Im not sure if this breaks it 
+@Observable
 class AuthViewModel: ObservableObject {
+    var users: [User] = [User(id: "1", email: "student@example.com", name: "Test")]
+    var clothingItems: [ClothingItem] = [ClothingItem(id: UUID(), userId: "1", name: "Uniqlo White Shirt", category: .top, mainColor: .white, accentColor: .none, fit: .oversized, notes: "This shirt is an XL size", brand: "Uniqlo", isFavorite: true)]
+    
     // MARK: - Published Properties
     
-    @State private var modelData = ModelData()
+   // @State private var modelData = ModelData()
     
     
     @Published var isAuthenticated = false {
@@ -97,12 +102,12 @@ class AuthViewModel: ObservableObject {
             // Mock authentication - replace with real API
             if email.lowercased() == "student@example.com" && password == "password123" {
                 // Success!
-                let user = User(
-                    id: UUID().uuidString,
-                    email: email,
-                    name: "Student User"
-                )
-                self.currentUser = user
+//                let user = User(
+//                    id: UUID().uuidString,
+//                    email: email,
+//                    name: "Student User"
+//                )
+                self.currentUser = users[0]
                 self.isAuthenticated = true
                 self.startSession()
             } else if email.lowercased() == "demo@demo.com" && password == "demo1234" {
@@ -115,7 +120,7 @@ class AuthViewModel: ObservableObject {
                 self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()
-                self.completedStyleQuiz = user.hasCompletedQuiz
+               // self.completedStyleQuiz = user.hasCompletedQuiz
             } else {
                 // Failed
                 self.errorMessage = "Invalid email or password"
@@ -146,14 +151,13 @@ class AuthViewModel: ObservableObject {
             
             // Mock registration - replace with real API
             // In real app, check if email already exists
-            modelData.currentUser = User(
-                id: UUID().uuidString,
-                email: email,
-                name: name,
-                styleQuiz: nil
-            )
+//            modelData.currentUser = User(
+//                id: UUID().uuidString,
+//                email: email,
+//                name: name,
+//            )
             
-            self.currentUser = modelData.currentUser!
+          //  self.currentUser = modelData.currentUser!
             self.isAuthenticated = true
             self.startSession()
             self.isLoading = false
@@ -167,9 +171,9 @@ class AuthViewModel: ObservableObject {
             return
         }
         
-        user.styleQuiz = quiz
+       // user.styleQuiz = quiz
             
-        completedStyleQuiz = quiz.isComplete
+        //completedStyleQuiz = quiz.isComplete
             
         saveUser()
             
@@ -347,4 +351,7 @@ class AuthViewModel: ObservableObject {
         return true
     }
 }
+
+
+
 

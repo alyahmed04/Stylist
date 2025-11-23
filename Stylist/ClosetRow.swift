@@ -12,18 +12,20 @@ import SwiftUI
 struct ClosetRow: View {
     
     @Environment(ModelData.self) var modelData
+    @EnvironmentObject var authVM: AuthViewModel
     @State var clothingItem: ClothingItem
     @State private var isShowingSheet = false
     @State private var isConfirming = false
+    
     var clothingIndex: Int {
-           modelData.clothingItems.firstIndex(where: { $0.id == clothingItem.id })!
+            authVM.clothingItems.firstIndex(where: { $0.id == clothingItem.id })!
        }
     
 
     
     var body: some View {
         
-        @Bindable var modelData = modelData
+        @Bindable var authVM = authVM
         
         //Learned how to make a copy for class objects and code snippet below from
         //https://www.hackingwithswift.com/example-code/system/how-to-copy-objects-in-swift-using-copy
@@ -33,19 +35,19 @@ struct ClosetRow: View {
             VStack(alignment: .leading, spacing: 12) {
                 
                 //Image was learned from 'Handling user input' tutorial that was assigned in the 'Introducing SwiftUI' apple tutorial path
-                if modelData.clothingItems[clothingIndex].category == .top{
+                if authVM.clothingItems[clothingIndex].category == .top{
                     //image from
                     //https://timvandevall.com/templates/blank-t-shirt-templates/
                     Image("blank-tshirt-template").resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-                else if modelData.clothingItems[clothingIndex].category == .outerwear{
+                else if authVM.clothingItems[clothingIndex].category == .outerwear{
                     //image from
                     //https://www.freepik.com/free-photos-vectors/jacket-sketch/2#uuid=fdbb9f22-7cdc-420e-9e18-ac2fd29a606b
                     Image("10775876").resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-                else if(modelData.clothingItems[clothingIndex].category == .bottom){
+                else if(authVM.clothingItems[clothingIndex].category == .bottom){
                     //image from
                     //https://www.freepik.com/free-photos-vectors/pants-flat-sketch
                     
@@ -54,13 +56,13 @@ struct ClosetRow: View {
                     Image("bottom").resizable()
                         .aspectRatio(contentMode: .fit).scaleEffect(0.75)
                 }
-                else if(modelData.clothingItems[clothingIndex].category == .accessory){
+                else if(authVM.clothingItems[clothingIndex].category == .accessory){
                     //image from
                     //https://www.freepik.com/free-photos-vectors/hat-drawing/2#uuid=8b0a1af1-2558-47f4-aa10-d2740ae4f647
                     Image("hat").resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-                else if(modelData.clothingItems[clothingIndex].category == .footwear){
+                else if(authVM.clothingItems[clothingIndex].category == .footwear){
                     //image from
                     //https://www.freepik.com/free-photos-vectors/shoe-drawing
                     Image("shoe").resizable()
@@ -69,12 +71,12 @@ struct ClosetRow: View {
                 else{
                     Image(systemName: "hanger")
                 }
-                Text(modelData.clothingItems[clothingIndex].name).font(.headline)
-                Text("Fit: \(modelData.clothingItems[clothingIndex].fit.rawValue)").font(.headline)
-                Text("Color: \(modelData.clothingItems[clothingIndex].mainColor.rawValue)").font(.headline)
+                Text(authVM.clothingItems[clothingIndex].name).font(.headline)
+                Text("Fit: \(authVM.clothingItems[clothingIndex].fit.rawValue)").font(.headline)
+                Text("Color: \(authVM.clothingItems[clothingIndex].mainColor.rawValue)").font(.headline)
                 
-                if(modelData.clothingItems[clothingIndex].notes.isEmpty == false){
-                    Text("Notes: \(modelData.clothingItems[clothingIndex].notes)").font(.headline)
+                if(authVM.clothingItems[clothingIndex].notes.isEmpty == false){
+                    Text("Notes: \(authVM.clothingItems[clothingIndex].notes)").font(.headline)
                     Spacer()
                 }
                 
@@ -94,7 +96,7 @@ struct ClosetRow: View {
                         isPresented: $isConfirming
                     ) {
                         Button {
-                            modelData.clothingItems.remove(at: clothingIndex)
+                            authVM.clothingItems.remove(at: clothingIndex)
                         } label: {
                             Text("""
                         Remove \(clothingItem.name)
@@ -109,7 +111,7 @@ struct ClosetRow: View {
                     Spacer()
                     Spacer()
                     NavigationLink{
-                        EditItem(clothingItem: $modelData.clothingItems[clothingIndex], clothingItemCopy: clothingItemCopy)
+                        EditItem(clothingItem: $authVM.clothingItems[clothingIndex], clothingItemCopy: clothingItemCopy)
                     }   label:{
                         HStack{
                             Image(systemName: "pencil").foregroundStyle(.blue)
@@ -132,7 +134,7 @@ struct ClosetRow: View {
 
 
 #Preview {
-    let modelData = ModelData()
-        return ClosetRow(clothingItem: modelData.clothingItems[0])
-            .environment(modelData)
+//    let modelData = ModelData()
+//        return ClosetRow(clothingItem: modelData.clothingItems[0])
+//            .environment(modelData)
 }

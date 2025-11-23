@@ -36,7 +36,7 @@ final class User: Identifiable, Decodable, Encodable{
            case email
            case id
            case name
-           case styleQuiz
+         //  case styleQuiz
            case closet
        }
     
@@ -47,7 +47,7 @@ final class User: Identifiable, Decodable, Encodable{
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
         email = try container.decode(String.self, forKey: .email)
-        styleQuiz = try container.decode(StyleQuiz.self, forKey: .styleQuiz)
+      //  styleQuiz = try container.decode(StyleQuiz.self, forKey: .styleQuiz)
         closet = try container.decode([ClothingItem].self, forKey: .closet)
         id = try container.decode(String.self, forKey: .id)
         
@@ -57,31 +57,31 @@ final class User: Identifiable, Decodable, Encodable{
     var id: String
     var email: String
     var name: String
-    var styleQuiz: StyleQuiz
+ //   var styleQuiz: StyleQuiz
     
-    @Relationship(deleteRule: .cascade, inverse: \ClothingItem.id)
+    @Relationship(deleteRule: .cascade, inverse: \ClothingItem.userId)
     var closet = [ClothingItem]()
     
     
-    init(id: String, email: String, name: String, styleQuiz: StyleQuiz? = nil) {
+    init(id: String, email: String, name: String) {
         self.id = id
         self.email = email
         self.name = name
-        self.styleQuiz = styleQuiz ?? StyleQuiz()
+      //  self.styleQuiz = styleQuiz ?? StyleQuiz()
     }
     
     
     //variable to check if user needs to complete quiz
-    var hasCompletedQuiz: Bool {
-        return styleQuiz.isComplete
-    }
+//    var hasCompletedQuiz: Bool {
+//        return styleQuiz.isComplete
+//    }
     //Learned how to make classes confirm to encodable and decodable from
     //https://www.hackingwithswift.com/forums/swiftui/can-someone-explain-my-mistake-here/24252
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(email, forKey: .email)
-        try container.encode(styleQuiz, forKey: .styleQuiz)
+    //    try container.encode(styleQuiz, forKey: .styleQuiz)
         try container.encode(closet, forKey: .closet)
         try container.encode(id, forKey: .id)
     }
