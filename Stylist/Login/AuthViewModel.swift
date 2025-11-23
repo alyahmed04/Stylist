@@ -41,16 +41,10 @@ enum AuthError: LocalizedError {
     }
 }
 
-//Im not sure if this breaks it 
-@Observable
 class AuthViewModel: ObservableObject {
-    var users: [User] = [User(id: "1", email: "student@example.com", name: "Test")]
-    var clothingItems: [ClothingItem] = [ClothingItem(id: UUID(), userId: "1", name: "Uniqlo White Shirt", category: .top, mainColor: .white, accentColor: .none, fit: .oversized, notes: "This shirt is an XL size", brand: "Uniqlo", isFavorite: true)]
-    
     // MARK: - Published Properties
     
-   // @State private var modelData = ModelData()
-    
+    @State private var modelData = ModelData()
     
     @Published var isAuthenticated = false {
         didSet {
@@ -63,8 +57,6 @@ class AuthViewModel: ObservableObject {
             saveUser()
         }
     }
-    
-    @Published var completedStyleQuiz = false
     
     @Published var errorMessage: String?
     @Published var isLoading = false
@@ -102,12 +94,12 @@ class AuthViewModel: ObservableObject {
             // Mock authentication - replace with real API
             if email.lowercased() == "student@example.com" && password == "password123" {
                 // Success!
-//                let user = User(
-//                    id: UUID().uuidString,
-//                    email: email,
-//                    name: "Student User"
-//                )
-                self.currentUser = users[0]
+                let user = User(
+                    id: UUID().uuidString,
+                    email: email,
+                    name: "Student User"
+                )
+                self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()
             } else if email.lowercased() == "demo@demo.com" && password == "demo1234" {
@@ -120,7 +112,6 @@ class AuthViewModel: ObservableObject {
                 self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()
-               // self.completedStyleQuiz = user.hasCompletedQuiz
             } else {
                 // Failed
                 self.errorMessage = "Invalid email or password"
@@ -136,7 +127,6 @@ class AuthViewModel: ObservableObject {
         errorMessage = nil
         isLoading = true
         
-        
         // Validate passwords match
         guard password == confirmPassword else {
             errorMessage = AuthError.passwordMismatch.localizedDescription
@@ -144,42 +134,25 @@ class AuthViewModel: ObservableObject {
             return
         }
         
-        
         // Simulate network delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
             guard let self = self else { return }
             
             // Mock registration - replace with real API
             // In real app, check if email already exists
-//            modelData.currentUser = User(
-//                id: UUID().uuidString,
-//                email: email,
-//                name: name,
-//            )
+            modelData.currentUser = User(
+                id: UUID().uuidString,
+                email: email,
+                name: name,
+            )
             
-          //  self.currentUser = modelData.currentUser!
+            self.currentUser = modelData.currentUser!
             self.isAuthenticated = true
             self.startSession()
             self.isLoading = false
-            self.completedStyleQuiz = false
         }
     }
     
-    func updateUserStyleQuiz(_ quiz: StyleQuiz) {
-        guard let user = currentUser else {
-            print("No current user!")
-            return
-        }
-        
-       // user.styleQuiz = quiz
-            
-        //completedStyleQuiz = quiz.isComplete
-            
-        saveUser()
-            
-    }
-        
-
     // MARK: - Biometric Authentication
     
     func loginWithBiometrics(completion: @escaping (Bool) -> Void) {
@@ -351,7 +324,3 @@ class AuthViewModel: ObservableObject {
         return true
     }
 }
-
-
-
-

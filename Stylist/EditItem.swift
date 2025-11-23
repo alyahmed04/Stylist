@@ -17,7 +17,6 @@ struct EditItem: View {
     //Learned from Apple Binding and TA
     //https://developer.apple.com/documentation/swiftui/bindable
     @Binding var clothingItem: ClothingItem
-    @EnvironmentObject var authVM: AuthViewModel
     
     //Used as a copy to show current values and to enter new values. The purpose of this is to only make active changes when the user saves them not by entering them into the fields.
     @State var clothingItemCopy: ClothingItem
@@ -40,106 +39,106 @@ struct EditItem: View {
     
     var body: some View {
         
-        if let user = authVM.currentUser {
-            Form{
-                
-                //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
-                //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
-                Section("Name"){
-                    //TextField learned from apple documentation
-                    //https://developer.apple.com/documentation/swiftui/textfield
-                    TextField("Enter Name", text: $clothingItemCopy.name)
-                }
-                Section("Fit"){
-                    List{
-                        Picker("Fit: ", selection: $clothingItemCopy.fit) {
-                            Text("Regular").tag(Fit.regular)
-                            Text("Relaxed").tag(Fit.relaxed)
-                            Text("Oversized").tag(Fit.oversized)
-                            Text("Slim").tag(Fit.slim)
-                        }
-                        .pickerStyle(.menu)
+        
+        Form{
+            
+            //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
+            //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
+            Section("Name"){
+                //TextField learned from apple documentation
+                //https://developer.apple.com/documentation/swiftui/textfield
+                TextField("Enter Name", text: $clothingItemCopy.name)
+            }
+            Section("Fit"){
+                List{
+                    Picker("Fit: ", selection: $clothingItemCopy.fit) {
+                        Text("Regular").tag(Fit.regular)
+                        Text("Relaxed").tag(Fit.relaxed)
+                        Text("Oversized").tag(Fit.oversized)
+                        Text("Slim").tag(Fit.slim)
                     }
-                    
+                    .pickerStyle(.menu)
                 }
                 
-                Section("Category"){
-                    //Learned from Apple Picker Documentation
-                    //https://developer.apple.com/documentation/SwiftUI/Picker
-                    List{
-                        Picker("Clothing Category: ", selection: $clothingItemCopy.category) {
-                            Text("Top").tag(ClothingCategory.top)
-                            Text("Outerwear").tag(ClothingCategory.outerwear)
-                            Text("Bottom").tag(ClothingCategory.bottom)
-                            Text("Footwear").tag(ClothingCategory.footwear)
-                            Text("accessory").tag(ClothingCategory.accessory)
-                        }
-                        .pickerStyle(.menu)
+            }
+            
+            Section("Category"){
+                //Learned from Apple Picker Documentation
+                //https://developer.apple.com/documentation/SwiftUI/Picker
+                List{
+                    Picker("Clothing Category: ", selection: $clothingItemCopy.category) {
+                        Text("Top").tag(ClothingCategory.top)
+                        Text("Outerwear").tag(ClothingCategory.outerwear)
+                        Text("Bottom").tag(ClothingCategory.bottom)
+                        Text("Footwear").tag(ClothingCategory.footwear)
+                        Text("accessory").tag(ClothingCategory.accessory)
                     }
+                    .pickerStyle(.menu)
                 }
-                
-                Section("Main Color"){
-                    //Learned from hacking with swift
-                    //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
-                    List{
-                        Picker("Main Color: ", selection: $clothingItemCopy.mainColor) {
-                            Text("White").tag(ColorFamily.white)
-                            Text("None").tag(ColorFamily.none)
-                            Text("Black").tag(ColorFamily.black)
-                            Text("Blue").tag(ColorFamily.blue)
-                            Text("Brown").tag(ColorFamily.brown)
-                            Text("Green").tag(ColorFamily.green)
-                            Text("Orange").tag(ColorFamily.orange)
-                            Text("Pink").tag(ColorFamily.pink)
-                            Text("Purple").tag(ColorFamily.purple)
-                            Text("Red").tag(ColorFamily.red)
-                            Text("Yellow").tag(ColorFamily.yellow)
-                        }
-                        .pickerStyle(.menu)
+            }
+            
+            Section("Main Color"){
+                //Learned from hacking with swift
+                //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
+                List{
+                    Picker("Main Color: ", selection: $clothingItemCopy.mainColor) {
+                        Text("White").tag(ColorFamily.white)
+                        Text("None").tag(ColorFamily.none)
+                        Text("Black").tag(ColorFamily.black)
+                        Text("Blue").tag(ColorFamily.blue)
+                        Text("Brown").tag(ColorFamily.brown)
+                        Text("Green").tag(ColorFamily.green)
+                        Text("Orange").tag(ColorFamily.orange)
+                        Text("Pink").tag(ColorFamily.pink)
+                        Text("Purple").tag(ColorFamily.purple)
+                        Text("Red").tag(ColorFamily.red)
+                        Text("Yellow").tag(ColorFamily.yellow)
                     }
+                    .pickerStyle(.menu)
                 }
-                
-                Section("Accent Color"){
-                    //Gotten from TA FAQ
-                    List{
-                        Picker("Accent Color: ", selection: $clothingItemCopy.accentColor) {
-                            Text("None").tag(ColorFamily.none)
-                            Text("Black").tag(ColorFamily.black)
-                            Text("Blue").tag(ColorFamily.blue)
-                            Text("Brown").tag(ColorFamily.brown)
-                            Text("Green").tag(ColorFamily.green)
-                            Text("Orange").tag(ColorFamily.orange)
-                            Text("Pink").tag(ColorFamily.pink)
-                            Text("Purple").tag(ColorFamily.purple)
-                            Text("Red").tag(ColorFamily.red)
-                            Text("Yellow").tag(ColorFamily.yellow)
-                            Text("White").tag(ColorFamily.white)
-                        }
-                        .pickerStyle(.menu)
+            }
+            
+            Section("Accent Color"){
+                //Gotten from TA FAQ
+                List{
+                    Picker("Accent Color: ", selection: $clothingItemCopy.accentColor) {
+                        Text("None").tag(ColorFamily.none)
+                        Text("Black").tag(ColorFamily.black)
+                        Text("Blue").tag(ColorFamily.blue)
+                        Text("Brown").tag(ColorFamily.brown)
+                        Text("Green").tag(ColorFamily.green)
+                        Text("Orange").tag(ColorFamily.orange)
+                        Text("Pink").tag(ColorFamily.pink)
+                        Text("Purple").tag(ColorFamily.purple)
+                        Text("Red").tag(ColorFamily.red)
+                        Text("Yellow").tag(ColorFamily.yellow)
+                        Text("White").tag(ColorFamily.white)
                     }
+                    .pickerStyle(.menu)
                 }
-                
-                Section("Brand"){
-                    //Learned from Apple Picker Documentation
-                    //https://developer.apple.com/documentation/SwiftUI/Picker
-                    TextField("Enter Brand", text: $clothingItemCopy.brand)
-                }
-                
-                Section("Notes"){
-                    //Learned from Apple Picker Documentation
-                    //https://developer.apple.com/documentation/SwiftUI/Picker
-                    TextField("Enter Item Notes", text: $clothingItemCopy.notes)
-                }
-                
-                Section("Favorite Item"){
-                    //Learned from Apple Picker Documentation
-                    //https://developer.apple.com/documentation/SwiftUI/Picker
-                    Toggle("Favorite Item", isOn: $clothingItemCopy.isFavorite)
-                }
+            }
+            
+            Section("Brand"){
+                //Learned from Apple Picker Documentation
+                //https://developer.apple.com/documentation/SwiftUI/Picker
+                TextField("Enter Brand", text: $clothingItemCopy.brand)
+            }
+            
+            Section("Notes"){
+                //Learned from Apple Picker Documentation
+                //https://developer.apple.com/documentation/SwiftUI/Picker
+                TextField("Enter Item Notes", text: $clothingItemCopy.notes)
+            }
+            
+            Section("Favorite Item"){
+                //Learned from Apple Picker Documentation
+                //https://developer.apple.com/documentation/SwiftUI/Picker
+                Toggle("Favorite Item", isOn: $clothingItemCopy.isFavorite)
+            }
                 
                 Section{
                     
-                    
+                   
                     Button("Save changes") {
                         cleanedName = clothingItemCopy.name.trimmingCharacters(in: .whitespaces)
                         cleanedBrand = clothingItemCopy.brand.trimmingCharacters(in: .whitespaces)
@@ -162,7 +161,7 @@ struct EditItem: View {
                 
                 //.alert and message functions (with use of isPresented field triggered by a button) for forms was learned in tutorial at "hacker with swift: Presenting an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/presenting-an-alert
-            }.alert("\(popup)", isPresented: $clicked){
+        }.alert("\(popup)", isPresented: $clicked){
                 
                 //Having a button in alert was learned in tutorial at "hacker with swift: how to show an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/how-to-show-an-alert
@@ -186,7 +185,6 @@ struct EditItem: View {
                 
                 
             }
-        }
             
             
             

@@ -15,7 +15,7 @@ struct ContentView: View {
         Group {
             if authVM.isAuthenticated {
                 // User is logged in - show home screen
-                Closet()
+                HomeView()
                     .transition(.move(edge: .trailing))
             } else {
                 // User is not logged in - show login screen

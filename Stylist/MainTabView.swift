@@ -1,41 +1,23 @@
 import SwiftUI
+// Main file for tab view
 
 struct MainTabView: View {
-    @EnvironmentObject var authVM: AuthViewModel
-    @Environment(ModelData.self) var modelData
-    
     var body: some View {
-        Group {
-            if (authVM.isAuthenticated) {
-                if (!authVM.completedStyleQuiz) {
-                    NavigationStack {
-                        StyleQuizView()
-                            .environmentObject(authVM)
-                    }
+        TabView {
+            HomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house.fill")
                 }
-                else {
-                    TabView {
-                        HomeView()
-                            .tabItem {
-                                Label("Home", systemImage: "house.fill")
-                            }
 
-                        Closet()
-                            .tabItem {
-                                Label("Closet", systemImage: "hanger")
-                            }
-
-                        OutfitRecommendation()
-                            .tabItem {
-                                Label("Outfits", systemImage: "shirt.fill")
-                            }
-                    }
+            Closet()
+                .tabItem {
+                    Label("Closet", systemImage: "hanger")
                 }
-            }
-            else {
-                LoginView()
-                    .environmentObject(authVM)
-            }
+
+            OutfitRecommendation()
+                .tabItem {
+                    Label("Outfits", systemImage: "shirt.fill")
+                }
         }
     }
 }
