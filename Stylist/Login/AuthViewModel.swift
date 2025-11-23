@@ -46,6 +46,7 @@ class AuthViewModel: ObservableObject {
     
     @State private var modelData = ModelData()
     
+    
     @Published var isAuthenticated = false {
         didSet {
             UserDefaults.standard.set(isAuthenticated, forKey: "isLoggedIn")
@@ -57,6 +58,8 @@ class AuthViewModel: ObservableObject {
             saveUser()
         }
     }
+    
+    @Published var completedStyleQuiz = false
     
     @Published var errorMessage: String?
     @Published var isLoading = false
@@ -112,6 +115,7 @@ class AuthViewModel: ObservableObject {
                 self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()
+                self.completedStyleQuiz = user.hasCompletedQuiz
             } else {
                 // Failed
                 self.errorMessage = "Invalid email or password"
@@ -127,12 +131,14 @@ class AuthViewModel: ObservableObject {
         errorMessage = nil
         isLoading = true
         
+        
         // Validate passwords match
         guard password == confirmPassword else {
             errorMessage = AuthError.passwordMismatch.localizedDescription
             isLoading = false
             return
         }
+        
         
         // Simulate network delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
@@ -144,15 +150,32 @@ class AuthViewModel: ObservableObject {
                 id: UUID().uuidString,
                 email: email,
                 name: name,
+                styleQuiz: nil
             )
             
             self.currentUser = modelData.currentUser!
             self.isAuthenticated = true
             self.startSession()
             self.isLoading = false
+            self.completedStyleQuiz = false
         }
     }
     
+    func updateUserStyleQuiz(_ quiz: StyleQuiz) {
+        guard let user = currentUser else {
+            print("No current user!")
+            return
+        }
+        
+        user.styleQuiz = quiz
+            
+        completedStyleQuiz = quiz.isComplete
+            
+        saveUser()
+            
+    }
+        
+
     // MARK: - Biometric Authentication
     
     func loginWithBiometrics(completion: @escaping (Bool) -> Void) {

@@ -13,6 +13,17 @@ struct StyleQuiz: Codable {
     var fit: String
     var color: String
     var shoppingFreq: String
+    
+    var isComplete: Bool {
+        return !style.isEmpty && !fit.isEmpty && !color.isEmpty && !shoppingFreq.isEmpty
+    }
+        
+    init(style: String = "", fit: String = "", color: String = "", shoppingFreq: String = "") {
+        self.style = style
+        self.fit = fit
+        self.color = color
+        self.shoppingFreq = shoppingFreq
+    }
 }
 
 //Learned how to make classes confirm to encodable and decodable from
@@ -56,9 +67,14 @@ final class User: Identifiable, Decodable, Encodable{
         self.id = id
         self.email = email
         self.name = name
-        self.styleQuiz = styleQuiz!
+        self.styleQuiz = styleQuiz ?? StyleQuiz()
     }
     
+    
+    //variable to check if user needs to complete quiz
+    var hasCompletedQuiz: Bool {
+        return styleQuiz.isComplete
+    }
     //Learned how to make classes confirm to encodable and decodable from
     //https://www.hackingwithswift.com/forums/swiftui/can-someone-explain-my-mistake-here/24252
     func encode(to encoder: Encoder) throws {

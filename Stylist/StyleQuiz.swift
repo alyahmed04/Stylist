@@ -11,6 +11,7 @@ import SwiftUI
 struct StyleQuizView: View {
     
     @State private var modelData = ModelData()
+    @State private var authVM = AuthViewModel()
     @State private var style = ""
     @State private var fit = ""
     @State private var color = ""
@@ -21,6 +22,17 @@ struct StyleQuizView: View {
     let fitOptions = ["Tight", "Tailored", "Relaxed", "Oversized"]
     let colorChoices = ["Neutrals", "Dark tones", "Bright colors"]
     let shoppingOptions = ["Weekly", "Monthly", "Rarely"]
+    
+    private func saveQuizResults() {
+        let quiz = StyleQuiz(
+            style: style,
+            fit: fit,
+            color: color,
+            shoppingFreq: shoppingFreq
+        )
+        
+        authVM.updateUserStyleQuiz(quiz)
+    }
     
     var body: some View {
         ScrollView {
@@ -66,17 +78,10 @@ struct StyleQuizView: View {
                 // Submit button
                 Button {
                     print("Saved quiz results!")
-                    //create user
-                    if var user = modelData.currentUser {
-                        user.styleQuiz = StyleQuiz(
-                            style: style,
-                            fit: fit,
-                            color: color,
-                            shoppingFreq: shoppingFreq
-                        )
-
-                        modelData.currentUser = user
-                    }
+                    //save quiz results for the user
+                    saveQuizResults()
+                    MainTabView()
+                    
                     
                 } label: {
                     Text("Finish")
@@ -91,6 +96,8 @@ struct StyleQuizView: View {
         }
     }
 }
+
+
 
 // Picker component
 struct QuestionPicker: View {
