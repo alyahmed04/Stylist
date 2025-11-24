@@ -31,7 +31,7 @@ struct StyleQuizView: View {
             shoppingFreq: shoppingFreq
         )
         
-        authVM.updateUserStyleQuiz(quiz)
+      //  authVM.updateUserStyleQuiz(quiz)
     }
     
     var body: some View {
