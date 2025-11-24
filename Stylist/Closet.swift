@@ -53,7 +53,8 @@ struct Closet: View {
     let preview = Preview()
     preview.addUsers(User.sampleUser)
     preview.addClothingItems(ClothingItem.clothingItems)
-    Closet().modelContainer(preview.container).environmentObject({
+    
+    return Closet().modelContainer(preview.container).environmentObject({
         let vm = AuthViewModel()
         vm.currentUser = User.sampleUser[0]
         vm.isAuthenticated = true
