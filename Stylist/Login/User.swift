@@ -59,7 +59,7 @@ final class User: Identifiable, Decodable, Encodable{
     var name: String
  //   var styleQuiz: StyleQuiz
     
-    @Relationship(deleteRule: .cascade, inverse: \ClothingItem.userId)
+    @Relationship(deleteRule: .cascade, inverse: \ClothingItem.user)
     var closet = [ClothingItem]()
     
     

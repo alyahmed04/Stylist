@@ -44,7 +44,7 @@ struct AddItem: View {
     
     var body: some View {
         
-        if let user = authVM.currentUser {
+       
             Form{
                 
                 //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
@@ -147,7 +147,7 @@ struct AddItem: View {
                         cleanedBrand = brand.trimmingCharacters(in: .whitespaces)
                         let cleanedNotes = notes.trimmingCharacters(in: .whitespaces)
                         if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil){
-                            let clothingItem = ClothingItem(userId: "1", name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand, isFavorite: favorite)
+                            let clothingItem = ClothingItem(name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand, isFavorite: favorite)
                             modelData.clothingItems.append(clothingItem)
                         }
                         clicked.toggle()
@@ -180,7 +180,6 @@ struct AddItem: View {
                 
                 
             }
-        }
             
             
             

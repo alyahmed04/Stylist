@@ -47,7 +47,7 @@ struct HomeView: View {
     }
     
     private var usernameText: String {
-        authViewModel.currentUser?.username ?? "there"
+        authViewModel.currentUser?.name ?? "there"
     }
     
     

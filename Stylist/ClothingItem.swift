@@ -76,13 +76,12 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
         brand = try container.decode(String.self, forKey: .brand)
         isFavorite = try container.decode(Bool.self, forKey: .isFavorite)
         id = try container.decode(UUID.self, forKey: .id)
-        userId = try container.decode(String.self, forKey: .userId)
     }
     
     
     @Attribute(.unique) var id: UUID
     
-    var userId: String
+    var user: User?
     var name: String
     var category: ClothingCategory
     var mainColor: ColorFamily
@@ -94,7 +93,7 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
 
     init(
         id: UUID = UUID(),
-        userId: String,
+        user: User? = nil,
         name: String,
         category: ClothingCategory,
         mainColor: ColorFamily,
@@ -104,7 +103,7 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
         isFavorite: Bool
     ) {
         self.id = id
-        self.userId = userId
+        self.user = user
         self.name = name
         self.category = category
         self.mainColor = mainColor
@@ -128,13 +127,13 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
         try container.encode(brand, forKey: .brand)
         try container.encode(isFavorite, forKey: .isFavorite)
         try container.encode(id, forKey: .id)
-        try container.encode(userId, forKey: .userId)
+        
     }
     
     //Learned how to make a copy for class objects and code snippet below from
     //https://www.hackingwithswift.com/example-code/system/how-to-copy-objects-in-swift-using-copy
     func copy(with zone: NSZone? = nil) -> Any {
-        var copy = ClothingItem(userId: userId, name: name, category: category, mainColor: mainColor, accentColor: accentColor, fit: fit, brand: brand, isFavorite: isFavorite)
+        var copy = ClothingItem(name: name, category: category, mainColor: mainColor, accentColor: accentColor, fit: fit, brand: brand, isFavorite: isFavorite)
             return copy
         }
     
