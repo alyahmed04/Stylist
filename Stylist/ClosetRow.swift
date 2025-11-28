@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+import SwiftData
 
 struct ClosetRow: View {
     
@@ -134,7 +134,15 @@ struct ClosetRow: View {
 
 
 #Preview {
-//    let modelData = ModelData()
-//        return ClosetRow(clothingItem: modelData.clothingItems[0])
-//            .environment(modelData)
+    let preview = Preview()
+    preview.addClothingItems(ClothingItem.clothingItems)
+
+    return ClosetRow(clothingItem: ClothingItem.clothingItems[0])
+        .modelContainer(preview.container)
+        .environmentObject({
+            let vm = AuthViewModel()
+            vm.currentUser = User.sampleUser[0]
+            vm.isAuthenticated = true
+            return vm
+        }())
 }
