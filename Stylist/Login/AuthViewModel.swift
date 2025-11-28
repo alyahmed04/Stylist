@@ -58,6 +58,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    @Published var lastRecommendation: String?
     @Published var errorMessage: String?
     @Published var isLoading = false
     @Published var biometricAuthEnabled = false
