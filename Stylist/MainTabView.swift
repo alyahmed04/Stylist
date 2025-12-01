@@ -16,7 +16,7 @@ struct MainTabView: View {
 
             OutfitRecommendation()
                 .tabItem {
-                    Label("Outfits", systemImage: "shirt.fill")
+                    Label("Outfits", systemImage: "tshirt.fill")
                 }
         }
     }
