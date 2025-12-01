@@ -21,14 +21,13 @@ struct LoginView: View {
                 VStack(spacing: 25) {
                     // Logo/Header
                     VStack(spacing: 10) {
-                        Image(systemName: "lock.shield.fill")
+                        Image(systemName: "jacket.fill")
                             .font(.system(size: 70))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.brown)
                             .padding(.top, 40)
                         
-                        Text("Welcome Back")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                        Text("Stylist")
+                            .font(.system(size: 60, weight: .bold, design: .serif))
                         
                         Text("Sign in to continue")
                             .font(.subheadline)
