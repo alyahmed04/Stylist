@@ -93,11 +93,11 @@ final class LLM {
         - A short outfit name
         - Which items to wear (use exact item names from the JSON)
         - Required components:
-            • 1 top
-            • 1 bottom
-            • Footwear
-            • Outerwear only if needed
-            • Optional accessories
+            - 1 top
+            - 1 bottom
+            - Footwear
+            - Outerwear only if needed
+            - Optional accessories
         - A short explanation (1–2 sentences)
 
         RESPONSE STYLE:
@@ -166,6 +166,85 @@ final class LLM {
             }
         }
         
+        task.resume()
+    }
+
+     // Asks the LLM for a short "style tip of the day"
+    func generateDailyStyleTip(
+        userName: String?,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        let namePart = (userName?.isEmpty == false) ? userName! : "stylist user"
+
+        let prompt = """
+        You are a friendly personal stylist.
+
+        TASK:
+        Give a single, short "style tip of the day" for \(namePart).
+
+        REQUIREMENTS:
+        - 1–2 sentences max
+        - Focus on practical everyday outfit advice
+        - No numbered lists or bullet points
+        - Do not ask questions or mention that you are an AI/ChatGPT
+        """
+
+        let body: [String: Any] = [
+            "model": modelName,
+            "messages": [
+                [
+                    "role": "system",
+                    "content": "You are a helpful fashion stylist that gives short, practical style tips."
+                ],
+                [
+                    "role": "user",
+                    "content": prompt
+                ]
+            ],
+            "temperature": 0.9
+        ]
+
+        guard let bodyData = try? JSONSerialization.data(withJSONObject: body, options: []) else {
+            completion(.failure(LLMError.encodingError))
+            return
+        }
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.httpBody = bodyData
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let data = data else {
+                    completion(.failure(LLMError.noData))
+                    return
+                }
+
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                       let choices = json["choices"] as? [[String: Any]],
+                       let first = choices.first,
+                       let message = first["message"] as? [String: Any],
+                       let content = message["content"] as? String {
+
+                        completion(.success(content.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    } else {
+                        let raw = String(data: data, encoding: .utf8) ?? "Unknown response"
+                        completion(.failure(LLMError.invalidResponse(raw)))
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+
         task.resume()
     }
 }
