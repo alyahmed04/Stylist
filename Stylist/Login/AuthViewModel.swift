@@ -105,11 +105,7 @@ class AuthViewModel: ObservableObject {
                 self.startSession()
             } else if email.lowercased() == "demo@demo.com" && password == "demo1234" {
                 // Additional demo account
-                let user = User(
-                    id: UUID().uuidString,
-                    email: email,
-                    name: "Demo User"
-                )
+                let user = User.sampleUser[1]
                 self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()

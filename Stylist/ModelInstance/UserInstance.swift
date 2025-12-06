@@ -11,5 +11,5 @@ import Foundation
 //https://www.youtube.com/watch?v=tZq4mvqH9Fg&t=1002s
 extension User {
     
-    static var sampleUser: [User] = [User(id: "1", email: "student@example.com", name: "Test")]
+    static var sampleUser: [User] = [User(id: "1", email: "student@example.com", name: "Test"), User(id: "2", email: "demo@demo.com", name: "Test3434")]
 }

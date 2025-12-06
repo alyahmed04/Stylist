@@ -25,6 +25,8 @@ struct HomeView: View {
                     // Style Quiz card
                     quizCard
                     
+                    settingsSection
+                    
                     // Tip of the Day
                     tipCard
                 }
@@ -108,7 +110,65 @@ struct HomeView: View {
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(radius: 3, y: 2)
     }
+    
+    private var settingsSection: some View {
+        VStack(spacing: 15) {
+            // Biometric toggle
+            if BiometricAuthManager.shared.isBiometricAvailable() {
+                VStack(alignment: .leading, spacing: 12) {
+                    Toggle(isOn: Binding(
+                        get: { authViewModel.biometricAuthEnabled },
+                        set: { enabled in
+                            if enabled {
+                                authViewModel.enableBiometricAuth()
+                            } else {
+                                authViewModel.disableBiometricAuth()
+                            }
+                        }
+                    )) {
+                        HStack {
+                            Image(systemName: BiometricAuthManager.shared.biometricType() == .faceID ?
+                                  "faceid" : "touchid")
+                                .foregroundColor(.green)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Enable \(BiometricAuthManager.shared.biometricType() == .faceID ? "Face ID" : "Touch ID")")
+                                    .font(.body)
+                                Text("Quick login on next visit")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
+            }
+            
+            // Logout button
+            Button(action: {
+                withAnimation {
+                    authViewModel.logout()
+                }
+            }) {
+                HStack {
+                    Image(systemName: "arrow.right.square.fill")
+                    Text("Logout")
+                        .fontWeight(.semibold)
+                }
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(Color.red)
+                .cornerRadius(10)
+            }
+        }
+    }
+
+    
+    
 }
+
 
 
 struct HomeCard: View {
