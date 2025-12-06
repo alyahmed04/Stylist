@@ -1,7 +1,9 @@
 import SwiftUI
+import SwiftData
 // Main file for tab view
 
 struct MainTabView: View {
+
     var body: some View {
         TabView {
             HomeView()
@@ -23,7 +25,15 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView()
-        .environment(ModelData())
-        .environmentObject(AuthViewModel())
+    let preview = Preview()
+    preview.addUsers(User.sampleUser)
+    preview.addClothingItems(ClothingItem.clothingItems)
+    
+    
+    return MainTabView().modelContainer(preview.container).environmentObject({
+        let vm = AuthViewModel()
+        vm.currentUser = User.sampleUser[0]
+        vm.isAuthenticated = true
+        return vm
+    }())
 }

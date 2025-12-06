@@ -10,7 +10,7 @@ import SwiftUI
 
 struct StyleQuizView: View {
     
-    @State private var modelData = ModelData()
+   // @State private var modelData = ModelData()
     @State private var authVM = AuthViewModel()
     @State private var style = ""
     @State private var fit = ""

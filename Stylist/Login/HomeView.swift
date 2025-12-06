@@ -1,8 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
     // Shared closet data
-    @Environment(ModelData.self) var modelData
+   // @Environment(ModelData.self) var modelData
     
     // Our existing auth view model
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -57,7 +58,7 @@ struct HomeView: View {
         } label: {
             HomeCard(
                 title: "Your Closet",
-                subtitle: "You have \(modelData.clothingItems.count) item\(modelData.clothingItems.count == 1 ? "" : "s") saved.",
+                subtitle: "You have \(authViewModel.currentUser!.closet.count) item\(authViewModel.currentUser!.closet.count == 1 ? "" : "s") saved.",
                 systemImage: "hanger"
             )
         }
@@ -147,7 +148,16 @@ struct HomeCard: View {
 
 
 #Preview {
-    HomeView()
-        .environment(ModelData())
-        .environmentObject(AuthViewModel())
+    let preview = Preview()
+    preview.addUsers(User.sampleUser)
+    preview.addClothingItems(ClothingItem.clothingItems)
+    
+    
+    return HomeView()
+        .modelContainer(preview.container).environmentObject({
+            let vm = AuthViewModel()
+            vm.currentUser = User.sampleUser[0]
+            vm.isAuthenticated = true
+            return vm
+        }())
 }

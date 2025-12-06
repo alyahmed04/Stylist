@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OutfitRecommendation: View {
     // access to closet and auth state
-    @Environment(ModelData.self) var modelData
+   // @Environment(ModelData.self) var modelData
     @EnvironmentObject var authVM: AuthViewModel
     
     @State var occasion: Occasion? = nil
@@ -129,7 +129,7 @@ struct OutfitRecommendation: View {
         occasion == nil ||
         fit == nil ||
         weather.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
-        modelData.clothingItems.isEmpty
+        authVM.currentUser!.closet.isEmpty
     }
     
     // call into our LLM
@@ -142,7 +142,7 @@ struct OutfitRecommendation: View {
         isLoading = true
         
         LLM.shared.generateOutfitRecommendation(
-            closet: modelData.clothingItems,
+            closet:  authVM.currentUser!.closet,
             occasion: occasion,
             fit: fit,
             weather: weather,

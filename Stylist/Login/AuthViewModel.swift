@@ -98,11 +98,8 @@ class AuthViewModel: ObservableObject {
             // Mock authentication - replace with real API
             if email.lowercased() == "student@example.com" && password == "password123" {
                 // Success!
-                let user = User(
-                    id: UUID().uuidString,
-                    email: email,
-                    name: "Student User"
-                )
+                let user = User.sampleUser[0]
+                
                 self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()

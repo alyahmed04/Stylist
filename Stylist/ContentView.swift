@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
-
+import SwiftData
 
 struct ContentView: View {
     @EnvironmentObject var authVM: AuthViewModel
-    
+    let preview = Preview()
     var body: some View {
+       
+        
         Group {
             if authVM.isAuthenticated {
                 // User is logged in - show home screen
-                HomeView()
+                MainTabView()
                     .transition(.move(edge: .trailing))
             } else {
                 // User is not logged in - show login screen
@@ -28,7 +30,13 @@ struct ContentView: View {
 }
 
 #Preview {
+    let preview = Preview()
     ContentView()
-        .environmentObject(AuthViewModel())
+        .modelContainer(preview.container).environmentObject({
+            let vm = AuthViewModel()
+            vm.currentUser = nil
+            vm.isAuthenticated = false
+            return vm
+        }())
 }
 
