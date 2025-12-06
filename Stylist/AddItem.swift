@@ -7,13 +7,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddItem: View {
     @State private var clicked: Bool = false
     
     //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
     //https://developer.apple.com/tutorials/swiftui/handling-user-input
-    @Environment(ModelData.self) var modelData
+   // @Environment(ModelData.self) var modelData
     @EnvironmentObject var authVM: AuthViewModel
    
     
@@ -148,7 +149,7 @@ struct AddItem: View {
                         let cleanedNotes = notes.trimmingCharacters(in: .whitespaces)
                         if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil){
                             let clothingItem = ClothingItem(name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand, isFavorite: favorite)
-                            modelData.clothingItems.append(clothingItem)
+                            authVM.currentUser!.closet.append(clothingItem)
                         }
                         clicked.toggle()
                         
@@ -190,5 +191,18 @@ struct AddItem: View {
 #Preview {
     //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
     //https://developer.apple.com/tutorials/swiftui/handling-user-input
-    AddItem().environment(ModelData())
+   
+    let preview = Preview()
+    preview.addUsers(User.sampleUser)
+    preview.addClothingItems(ClothingItem.clothingItems)
+
+    return AddItem()
+        .modelContainer(preview.container)
+        .environmentObject({
+            let vm = AuthViewModel()
+            vm.currentUser = User.sampleUser[0]
+            vm.isAuthenticated = true
+            return vm
+        }())
+    
 }

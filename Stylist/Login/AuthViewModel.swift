@@ -44,6 +44,9 @@ enum AuthError: LocalizedError {
 class AuthViewModel: ObservableObject {
     // MARK: - Published Properties
     
+    var sampleUser: [User] = [User(id: "1", email: "student@example.com", name: "Test")]
+    
+    
     @State private var modelData = ModelData()
     
     @Published var isAuthenticated = false {

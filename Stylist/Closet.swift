@@ -10,7 +10,12 @@ import SwiftUI
 import SwiftData
 
 struct Closet: View {
-    @Environment(ModelData.self) var modelData
+    
+    //Removal of environmental variables from all corresponding files was the change made
+    //Solution was gotten from claude
+    //Original Code:
+    // @Environment(ModelData.self) var modelData
+    //Conversation:
     @State private var showFavoritesOnly = false
     @EnvironmentObject var authVM: AuthViewModel
 

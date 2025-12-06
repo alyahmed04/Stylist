@@ -11,7 +11,12 @@ import SwiftData
 
 struct ClosetRow: View {
     
-    @Environment(ModelData.self) var modelData
+    //Removal of environmental variables from all corresponding files was the change made
+    //Solution was gotten from claude
+    //Original Code:
+    // @Environment(ModelData.self) var modelData
+    //Conversation: 
+    
     @State var clothingItem: ClothingItem
     @State private var isShowingSheet = false
     @State private var isConfirming = false
@@ -25,7 +30,7 @@ struct ClosetRow: View {
     
     var body: some View {
         
-       // @Bindable var modelData = modelData
+       // @Bindable var authVM = authVM
         
         //Learned how to make a copy for class objects and code snippet below from
         //https://www.hackingwithswift.com/example-code/system/how-to-copy-objects-in-swift-using-copy
@@ -111,7 +116,7 @@ struct ClosetRow: View {
                     Spacer()
                     Spacer()
                     NavigationLink{
-//                        EditItem(clothingItem: $modelData.clothingItems[clothingIndex], clothingItemCopy: clothingItemCopy)
+                        EditItem(clothingItem: authVM.currentUser!.closet[clothingIndex], clothingItemCopy: clothingItemCopy)
                     }   label:{
                         HStack{
                             Image(systemName: "pencil").foregroundStyle(.blue)

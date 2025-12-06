@@ -13,10 +13,15 @@ struct EditItem: View {
     @State private var clicked: Bool = false
     
    
+    //Removal of environmental variables from all corresponding files was the change made
+    //Solution was gotten from claude
+    //Original Code:
+    // @Environment(ModelData.self) var modelData
+    //Conversation:
     
     //Learned from Apple Binding and TA
     //https://developer.apple.com/documentation/swiftui/bindable
-    @Binding var clothingItem: ClothingItem
+    @State var clothingItem: ClothingItem
     
     //Used as a copy to show current values and to enter new values. The purpose of this is to only make active changes when the user saves them not by entering them into the fields.
     @State var clothingItemCopy: ClothingItem
