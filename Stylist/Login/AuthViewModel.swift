@@ -65,6 +65,7 @@ class AuthViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = false
     @Published var biometricAuthEnabled = false
+    @Published var dailyTip: String?
     
     // Session management
     private var sessionTimer: Timer?
@@ -103,12 +104,14 @@ class AuthViewModel: ObservableObject {
                 self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()
+                self.refreshDailyTip()
             } else if email.lowercased() == "demo@demo.com" && password == "demo1234" {
                 // Additional demo account
                 let user = User.sampleUser[1]
                 self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()
+                self.refreshDailyTip()
             } else {
                 // Failed
                 self.errorMessage = "Invalid email or password"
@@ -147,6 +150,7 @@ class AuthViewModel: ObservableObject {
             self.isAuthenticated = true
             self.startSession()
             self.isLoading = false
+            self.refreshDailyTip()
         }
     }
     
@@ -248,6 +252,21 @@ class AuthViewModel: ObservableObject {
             resetSessionTimer()
         }
     }
+
+    func refreshDailyTip() {
+    guard let user = currentUser else { return }
+    
+    LLM.shared.generateDailyStyleTip(userName: user.name) { [weak self] result in
+        switch result {
+        case .success(let tip):
+            self?.dailyTip = tip
+        case .failure(let error):
+            // We could also surface this as error message if there are any problems
+            print("Failed to load daily tip: \(error.localizedDescription)")
+            self?.dailyTip = "Start with a neutral base and add one accent color. This makes outfits easier to mix and match."
+        }
+    }
+}
     
     // MARK: - User Persistence
     
