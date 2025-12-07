@@ -8,23 +8,27 @@
 import Foundation
 import SwiftData
 
-struct StyleQuiz: Codable {
+@Model
+final class StyleQuiz: Identifiable {
+    var id: String
     var style: String
     var fit: String
     var color: String
     var shoppingFreq: String
     
-    var isComplete: Bool {
-        return !style.isEmpty && !fit.isEmpty && !color.isEmpty && !shoppingFreq.isEmpty
-    }
-        
-    init(style: String = "", fit: String = "", color: String = "", shoppingFreq: String = "") {
+    init(id: String = UUID().uuidString, style: String, fit: String, color: String, shoppingFreq: String) {
+        self.id = id
         self.style = style
         self.fit = fit
         self.color = color
         self.shoppingFreq = shoppingFreq
     }
+
+    var isComplete: Bool {
+        !style.isEmpty && !fit.isEmpty && !color.isEmpty && !shoppingFreq.isEmpty
+    }
 }
+
 
 //Learned how to make classes confirm to encodable and decodable from
 //https://www.hackingwithswift.com/forums/swiftui/can-someone-explain-my-mistake-here/24252
@@ -62,6 +66,9 @@ final class User: Identifiable, Decodable, Encodable{
     @Relationship(deleteRule: .cascade, inverse: \ClothingItem.user)
     var closet = [ClothingItem]()
     
+    @Relationship(deleteRule: .cascade)
+    var quizzes: [StyleQuiz] = []
+    
     
     init(id: String, email: String, name: String) {
         self.id = id
@@ -84,6 +91,10 @@ final class User: Identifiable, Decodable, Encodable{
     //    try container.encode(styleQuiz, forKey: .styleQuiz)
         try container.encode(closet, forKey: .closet)
         try container.encode(id, forKey: .id)
+    }
+    
+    var hasCompletedQuiz: Bool {
+        return (!quizzes.isEmpty)
     }
     
     
