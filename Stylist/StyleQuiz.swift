@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SwiftData
+
 
 struct StyleQuizView: View {
     
@@ -134,6 +136,7 @@ struct StyleQuizView: View {
                 // Submit / Finish button
                 Button {
                     let quiz = saveQuizResults()
+                    authVM.currentUser?.quizzes.append(quiz)
                     generateStyleQuizOutfits(from: quiz)
                 } label: {
                     HStack {
