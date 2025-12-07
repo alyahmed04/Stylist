@@ -40,19 +40,19 @@ struct ClosetRow: View {
             VStack(alignment: .leading, spacing: 12) {
                 
                 //Image was learned from 'Handling user input' tutorial that was assigned in the 'Introducing SwiftUI' apple tutorial path
-                if authVM.currentUser!.closet[clothingIndex].category == .top{
+                if clothingItem.category == .top{
                     //image from
                     //https://timvandevall.com/templates/blank-t-shirt-templates/
                     Image("blank-tshirt-template").resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-                else if authVM.currentUser!.closet[clothingIndex].category == .outerwear{
+                else if clothingItem.category == .outerwear{
                     //image from
                     //https://www.freepik.com/free-photos-vectors/jacket-sketch/2#uuid=fdbb9f22-7cdc-420e-9e18-ac2fd29a606b
                     Image("10775876").resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-                else if(authVM.currentUser!.closet[clothingIndex].category == .bottom){
+                else if(clothingItem.category == .bottom){
                     //image from
                     //https://www.freepik.com/free-photos-vectors/pants-flat-sketch
                     
@@ -61,13 +61,13 @@ struct ClosetRow: View {
                     Image("bottom").resizable()
                         .aspectRatio(contentMode: .fit).scaleEffect(0.75)
                 }
-                else if(authVM.currentUser!.closet[clothingIndex].category == .accessory){
+                else if(clothingItem.category == .accessory){
                     //image from
                     //https://www.freepik.com/free-photos-vectors/hat-drawing/2#uuid=8b0a1af1-2558-47f4-aa10-d2740ae4f647
                     Image("hat").resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-                else if(authVM.currentUser!.closet[clothingIndex].category == .footwear){
+                else if(clothingItem.category == .footwear){
                     //image from
                     //https://www.freepik.com/free-photos-vectors/shoe-drawing
                     Image("shoe").resizable()
@@ -76,12 +76,12 @@ struct ClosetRow: View {
                 else{
                     Image(systemName: "hanger")
                 }
-                Text(authVM.currentUser!.closet[clothingIndex].name).font(.headline)
-                Text("Fit: \(authVM.currentUser!.closet[clothingIndex].fit.rawValue)").font(.headline)
-                Text("Color: \(authVM.currentUser!.closet[clothingIndex].mainColor.rawValue)").font(.headline)
+                Text(clothingItem.name).font(.headline)
+                Text("Fit: \(clothingItem.fit.rawValue)").font(.headline)
+                Text("Color: \(clothingItem.mainColor.rawValue)").font(.headline)
                 
-                if(authVM.currentUser!.closet[clothingIndex].notes.isEmpty == false){
-                    Text("Notes: \(authVM.currentUser!.closet[clothingIndex].notes)").font(.headline)
+                if(clothingItem.notes.isEmpty == false){
+                    Text("Notes: \(clothingItem.notes)").font(.headline)
                     Spacer()
                 }
                 
@@ -116,7 +116,7 @@ struct ClosetRow: View {
                     Spacer()
                     Spacer()
                     NavigationLink{
-                        EditItem(clothingItem: authVM.currentUser!.closet[clothingIndex], clothingItemCopy: clothingItemCopy)
+                        EditItem(clothingItem: clothingItem, clothingItemCopy: clothingItemCopy)
                     }   label:{
                         HStack{
                             Image(systemName: "pencil").foregroundStyle(.blue)

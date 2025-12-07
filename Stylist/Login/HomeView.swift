@@ -17,10 +17,10 @@ struct HomeView: View {
                     headerSection
                     
                     // Closet summary
-                    closetCard
+                 //   closetCard
                     
                     // Recommendation card
-                    recommendationCard
+                    lastRecommendationCard
                     
                     // Style Quiz card
                     quizCard
@@ -51,6 +51,29 @@ struct HomeView: View {
     
     private var usernameText: String {
         authViewModel.currentUser?.name ?? "there"
+    }
+    
+    
+    private var lastRecommendationCard: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Your Last Recommendation")
+                .font(.headline)
+            
+            if let lastRecommendation = authViewModel.lastRecommendation {
+                Text(.init(lastRecommendation))
+                    .font(.footnote)
+            } else {
+                // Shown for a second while we wait for the API call to work
+                Text("Naivigate to The Recommendation page to get your recommendation!")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(radius: 3, y: 2)
     }
     
     
@@ -103,7 +126,7 @@ struct HomeView: View {
             .font(.headline)
         
         if let tip = authViewModel.dailyTip {
-            Text(tip)
+            Text(.init(tip))
                 .font(.footnote)
         } else {
             // Shown for a second while we wait for the API call to work
