@@ -135,11 +135,7 @@ struct EditItem: View {
                 TextField("Enter Item Notes", text: $clothingItemCopy.notes)
             }
             
-            Section("Favorite Item"){
-                //Learned from Apple Picker Documentation
-                //https://developer.apple.com/documentation/SwiftUI/Picker
-                Toggle("Favorite Item", isOn: $clothingItemCopy.isFavorite)
-            }
+            
                 
                 Section{
                     
@@ -156,7 +152,6 @@ struct EditItem: View {
                             clothingItem.accentColor = clothingItemCopy.accentColor
                             clothingItem.brand = clothingItemCopy.brand
                             clothingItem.notes = cleanedNotes
-                            clothingItem.isFavorite = clothingItemCopy.isFavorite
                         }
                         clicked.toggle()
                         

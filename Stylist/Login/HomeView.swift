@@ -7,6 +7,13 @@ struct HomeView: View {
     
     // Our existing auth view model
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var headerColor =
+           Color(.sRGB, red: 0.32, green: 0.18, blue: 0.11)
+    @State private var subheaderColor =
+           Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
+    
+    @State private var backgroundColor =
+           Color(.sRGB, red: 1, green: 0.93, blue: 0.82)
     
     var body: some View {
         NavigationStack {
@@ -17,10 +24,10 @@ struct HomeView: View {
                     headerSection
                     
                     // Closet summary
-                    closetCard
+                 //   closetCard
                     
                     // Recommendation card
-                    recommendationCard
+                    lastRecommendationCard
                     
                     // Style Quiz card
                     quizCard
@@ -31,7 +38,7 @@ struct HomeView: View {
                     settingsSection
                 }
                 .padding()
-            }
+            }.background(backgroundColor)
             .navigationTitle("Home")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -41,11 +48,11 @@ struct HomeView: View {
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Hello, \(usernameText) 👋")
-                .font(.largeTitle.bold())
+                .font(.largeTitle.bold()).foregroundStyle(headerColor)
             
             Text("Let’s build your perfect outfit today.")
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(subheaderColor)
         }
     }
     
@@ -54,33 +61,32 @@ struct HomeView: View {
     }
     
     
-    private var closetCard: some View {
-        NavigationLink {
-            Closet()
-        } label: {
-            HomeCard(
-                title: "Your Closet",
-                subtitle: "You have \(authViewModel.currentUser!.closet.count) item\(authViewModel.currentUser!.closet.count == 1 ? "" : "s") saved.",
-                systemImage: "hanger"
-            )
+    private var lastRecommendationCard: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Your Last Recommendation")
+                .font(.headline).foregroundStyle(headerColor)
+            
+            if let lastRecommendation = authViewModel.lastRecommendation {
+                //Learned that Text can intpret markdown from
+                //https://www.hackingwithswift.com/quick-start/swiftui/how-to-render-markdown-content-in-text
+                //Learned how to get variables to display markdown from:
+                //https://stackoverflow.com/questions/71484662/swiftui-text-markdown-support-for-string-variables-or-string-interpolation-not-w
+                Text(.init(lastRecommendation))
+                    .font(.footnote)
+            } else {
+                // Shown for a second while we wait for the API call to work
+                Text("Naivigate to The Recommendation page to get your recommendation!")
+                    .font(.footnote)
+                    .foregroundStyle(subheaderColor)
+            }
         }
-        .buttonStyle(.plain)
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(radius: 3, y: 2)
     }
     
-    // Recommendation Card
-    
-    private var recommendationCard: some View {
-        NavigationLink {
-            OutfitRecommendation()
-        } label: {
-            HomeCard(
-                title: "Get Styled",
-                subtitle: "Generate an outfit using your wardrobe.",
-                systemImage: "sparkles"
-            )
-        }
-        .buttonStyle(.plain)
-    }
     
     
     private var quizCard: some View {
@@ -100,16 +106,20 @@ struct HomeView: View {
    private var tipCard: some View {
     VStack(alignment: .leading, spacing: 8) {
         Text("Tip of the Day")
-            .font(.headline)
+            .font(.headline).foregroundStyle(headerColor)
         
         if let tip = authViewModel.dailyTip {
-            Text(tip)
+            //Learned that Text can intpret markdown from
+            //https://www.hackingwithswift.com/quick-start/swiftui/how-to-render-markdown-content-in-text
+            //Learned how to get variables to display markdown from:
+            //https://stackoverflow.com/questions/71484662/swiftui-text-markdown-support-for-string-variables-or-string-interpolation-not-w
+            Text(.init(tip))
                 .font(.footnote)
         } else {
             // Shown for a second while we wait for the API call to work
             Text("Loading a style tip for you...")
                 .font(.footnote)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(subheaderColor)
         }
     }
     .padding()
@@ -184,6 +194,11 @@ struct HomeCard: View {
     let title: String
     let subtitle: String
     let systemImage: String
+    @State private var headerColor =
+        Color(.sRGB, red: 0.32, green: 0.18, blue: 0.11)
+    
+    @State private var subheaderColor =
+           Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
     
     var body: some View {
         HStack(spacing: 16) {
@@ -195,10 +210,10 @@ struct HomeCard: View {
             
             VStack(alignment: .leading, spacing: 6) {
                 Text(title)
-                    .font(.headline)
+                    .font(.headline).foregroundStyle(headerColor)
                 Text(subtitle)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(subheaderColor)
             }
             
             Spacer()

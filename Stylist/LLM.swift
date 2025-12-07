@@ -43,7 +43,7 @@ final class LLM {
     private init() {}
     
     // Aly's API key will go here
-    private let apiKey = "ALY's API KEY"
+    private let apiKey = "API_KEY"
     
     // OpenAI Chat Completions endpoint
     private let endpoint = URL(string: "https://api.openai.com/v1/chat/completions")!
@@ -51,7 +51,10 @@ final class LLM {
     private let modelName = "gpt-4.1-mini"
     
     
-    /// Uses the user's closet and preferences to ask the LLM for an outfit recommendation.
+    
+    // Uses the user's closet and preferences to ask the LLM for an outfit recommendation.
+    //Learned thay ChatGPT can return markdown to be interpreted from:
+    //https://community.openai.com/t/response-formatting-b-text-b-instead-of-text/687054
     func generateOutfitRecommendation(
         closet: [ClothingItem],
         occasion: Occasion,
@@ -101,7 +104,7 @@ final class LLM {
         - A short explanation (1–2 sentences)
 
         RESPONSE STYLE:
-        Use plain text with bullet points. Do NOT use JSON.
+        Use Markdown to format your response to make the most engaging message and use bullet points. Keep response short. Do NOT use JSON.
         """
         
         // Build the HTTP body for Chat Completions
@@ -170,6 +173,8 @@ final class LLM {
     }
 
      // Asks the LLM for a short "style tip of the day"
+    //Learned thay ChatGPT can return markdown to be interpreted from:
+    //https://community.openai.com/t/response-formatting-b-text-b-instead-of-text/687054
     func generateDailyStyleTip(
         userName: String?,
         completion: @escaping (Result<String, Error>) -> Void
@@ -187,6 +192,7 @@ final class LLM {
         - Focus on practical everyday outfit advice
         - No numbered lists or bullet points
         - Do not ask questions or mention that you are an AI/ChatGPT
+        - Use Markdown to format your response to make the most engaging message. Bold or underline key terms or phrases when needed.
         """
 
         let body: [String: Any] = [
@@ -248,6 +254,8 @@ final class LLM {
         task.resume()
     }
     
+    //Learned thay ChatGPT can return markdown to be interpreted from:
+    //https://community.openai.com/t/response-formatting-b-text-b-instead-of-text/687054
     func generateOutfitsFromStyleQuiz(
         quiz: StyleQuiz,
         completion: @escaping (Result<String, Error>) -> Void
@@ -272,7 +280,7 @@ final class LLM {
         
         IMPORTANT:
         - These are general outfit ideas, not tied to any specific closet JSON.
-        - Use plain text with bullet points.
+        - Use Markdown to format your response to make the most engaging message and use bullet points.
         - Do NOT respond in JSON.
         """
         

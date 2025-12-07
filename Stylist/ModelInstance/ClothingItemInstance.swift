@@ -10,5 +10,5 @@ import Foundation
 //Code learned and gotten from:
 //https://www.youtube.com/watch?v=tZq4mvqH9Fg&t=1002s
 extension ClothingItem{
-    static var clothingItems: [ClothingItem] = [ClothingItem(id: UUID(), user: User.sampleUser[0], name: "Uniqlo White Shirt", category: .top, mainColor: .white, accentColor: .none, fit: .oversized, notes: "This shirt is an XL size", brand: "Uniqlo", isFavorite: true), ClothingItem(id: UUID(), user: User.sampleUser[1], name: "Uniqlo jacket", category: .outerwear, mainColor: .black, accentColor: .none, fit: .oversized, notes: "This a black coat", brand: "Uniqlo", isFavorite: true)]
+    static var clothingItems: [ClothingItem] = [ClothingItem(id: UUID(), user: User.sampleUser[0], name: "Uniqlo White Shirt", category: .top, mainColor: .white, accentColor: .none, fit: .oversized, notes: "This shirt is an XL size", brand: "Uniqlo"), ClothingItem(id: UUID(), user: User.sampleUser[1], name: "Uniqlo jacket", category: .outerwear, mainColor: .black, accentColor: .none, fit: .oversized, notes: "This a black coat", brand: "Uniqlo")]
 }

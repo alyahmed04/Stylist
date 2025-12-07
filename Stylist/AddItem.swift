@@ -25,7 +25,7 @@ struct AddItem: View {
     @State private var accentColor: ColorFamily? = ColorFamily.none
     @State private var brand: String = ""
     @State private var notes: String = ""
-    @State private var favorite: Bool = false
+    //@State private var favorite: Bool = false
     
     
     @State private var cleanedName: String = ""
@@ -135,11 +135,6 @@ struct AddItem: View {
                     TextField("Enter Item Notes", text: $notes)
                 }
                 
-                Section("Favorite Item"){
-                    //Learned from Apple Picker Documentation
-                    //https://developer.apple.com/documentation/SwiftUI/Picker
-                    Toggle("Favorite Item", isOn: $favorite)
-                }
                 
                 Section{
                     
@@ -148,7 +143,7 @@ struct AddItem: View {
                         cleanedBrand = brand.trimmingCharacters(in: .whitespaces)
                         let cleanedNotes = notes.trimmingCharacters(in: .whitespaces)
                         if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil){
-                            let clothingItem = ClothingItem(name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand, isFavorite: favorite)
+                            let clothingItem = ClothingItem(name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand)
                             authVM.currentUser!.closet.append(clothingItem)
                         }
                         clicked.toggle()

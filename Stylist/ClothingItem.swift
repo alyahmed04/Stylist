@@ -60,7 +60,6 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
         case fit
         case notes
         case brand
-        case isFavorite
         
        }
     //Learned how to make classes confirm to encodable and decodable from
@@ -74,7 +73,6 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
         fit = try container.decode(Fit.self, forKey: .fit)
         notes = try container.decode(String.self, forKey: .notes)
         brand = try container.decode(String.self, forKey: .brand)
-        isFavorite = try container.decode(Bool.self, forKey: .isFavorite)
         id = try container.decode(UUID.self, forKey: .id)
     }
     
@@ -89,7 +87,6 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
     var fit: Fit
     var notes: String
     var brand: String
-    var isFavorite: Bool = false
 
     init(
         id: UUID = UUID(),
@@ -99,8 +96,7 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
         mainColor: ColorFamily,
         accentColor: ColorFamily = ColorFamily.none,
         fit: Fit,
-        notes: String = "", brand: String,
-        isFavorite: Bool
+        notes: String = "", brand: String
     ) {
         self.id = id
         self.user = user
@@ -110,7 +106,6 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
         self.accentColor = accentColor
         self.fit = fit
         self.notes = notes
-        self.isFavorite = isFavorite
         self.brand = brand
     }
     
@@ -125,7 +120,6 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
         try container.encode(fit, forKey: .fit)
         try container.encode(notes, forKey: .notes)
         try container.encode(brand, forKey: .brand)
-        try container.encode(isFavorite, forKey: .isFavorite)
         try container.encode(id, forKey: .id)
         
     }
@@ -133,7 +127,7 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
     //Learned how to make a copy for class objects and code snippet below from
     //https://www.hackingwithswift.com/example-code/system/how-to-copy-objects-in-swift-using-copy
     func copy(with zone: NSZone? = nil) -> Any {
-        var copy = ClothingItem(name: name, category: category, mainColor: mainColor, accentColor: accentColor, fit: fit, brand: brand, isFavorite: isFavorite)
+        let copy = ClothingItem(name: name, category: category, mainColor: mainColor, accentColor: accentColor, fit: fit, brand: brand)
             return copy
         }
     

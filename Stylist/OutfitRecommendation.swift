@@ -110,7 +110,7 @@ struct OutfitRecommendation: View {
                 if let text = recommendationText {
                    
                     Section("Your Recommendation") {
-                        Text(text)
+                        Text(.init(text))
                             .font(.body)
                             .fixedSize(horizontal: false, vertical: true)
                     }
