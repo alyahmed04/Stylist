@@ -19,6 +19,14 @@ struct Closet: View {
     @State private var showFavoritesOnly = false
     @EnvironmentObject var authVM: AuthViewModel
 
+    //Learned from:
+    //https://developer.apple.com/documentation/swiftui/colorpicker
+    @State private var backgroundColor =
+           Color(.sRGB, red: 1, green: 0.93, blue: 0.82)
+    
+    @State private var subheaderColor =
+           Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
+    
     
     var body: some View {
         //navigation stack was learned through apple documentation
@@ -34,7 +42,7 @@ struct Closet: View {
                         ClosetRow(clothingItem: clothingItem).padding(.vertical).frame(maxWidth: .infinity, alignment: .center).listRowSeparator(.automatic).listRowSeparatorTint(.black)
                     }
                     
-                }.navigationTitle("Closet").toolbar{
+                }.navigationTitle("Closet").foregroundColor(subheaderColor).toolbar{
                     NavigationLink{
                         AddItem()
                     } label: {
@@ -43,7 +51,8 @@ struct Closet: View {
                             Text("Add Item")
                         }
                     }.foregroundStyle(.blue)
-                }
+                }.scrollContentBackground(.hidden)
+                    .background(backgroundColor)
             }
             
             

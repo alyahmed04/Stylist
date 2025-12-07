@@ -36,6 +36,19 @@ struct EditItem: View {
         cleanedName.isEmpty == false && cleanedBrand.isEmpty == false ? "Sucess!" : "Error!"
     }
     
+    //Learned from:
+    //https://developer.apple.com/documentation/swiftui/colorpicker
+    @State private var backgroundColor =
+           Color(.sRGB, red: 1, green: 0.93, blue: 0.82)
+    
+    @State private var subheaderColor =
+           Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
+    
+    @State private var buttonColor =
+           Color(.sRGB, red: 1, green: 0.85, blue: 0.62)
+    
+    
+    
     //Learned from Apple dismiss documentation and first discovered in bindable documentation
     //https://developer.apple.com/documentation/swiftui/environmentvalues/dismiss
     
@@ -44,7 +57,8 @@ struct EditItem: View {
     
     var body: some View {
         
-        
+        //Form Styling Learned from:
+        //https://sarunw.com/posts/swiftui-form-styling/
         Form{
             
             //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
@@ -52,7 +66,7 @@ struct EditItem: View {
             Section("Name"){
                 //TextField learned from apple documentation
                 //https://developer.apple.com/documentation/swiftui/textfield
-                TextField("Enter Name", text: $clothingItemCopy.name)
+                TextField("Enter Name (Required)", text: $clothingItemCopy.name)
             }
             Section("Fit"){
                 List{
@@ -126,7 +140,7 @@ struct EditItem: View {
             Section("Brand"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
-                TextField("Enter Brand", text: $clothingItemCopy.brand)
+                TextField("Enter Brand (Required)", text: $clothingItemCopy.brand)
             }
             
             Section("Notes"){
@@ -139,29 +153,32 @@ struct EditItem: View {
                 
                 Section{
                     
-                   
-                    Button("Save changes") {
-                        cleanedName = clothingItemCopy.name.trimmingCharacters(in: .whitespaces)
-                        cleanedBrand = clothingItemCopy.brand.trimmingCharacters(in: .whitespaces)
-                        let cleanedNotes = clothingItemCopy.notes.trimmingCharacters(in: .whitespaces)
-                        if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false){
-                            clothingItem.name = clothingItemCopy.name
-                            clothingItem.category = clothingItemCopy.category
-                            clothingItem.fit = clothingItemCopy.fit
-                            clothingItem.mainColor = clothingItemCopy.mainColor
-                            clothingItem.accentColor = clothingItemCopy.accentColor
-                            clothingItem.brand = clothingItemCopy.brand
-                            clothingItem.notes = cleanedNotes
-                        }
-                        clicked.toggle()
-                        
+                    HStack{
+                        Spacer()
+                        Button("Save changes") {
+                            cleanedName = clothingItemCopy.name.trimmingCharacters(in: .whitespaces)
+                            cleanedBrand = clothingItemCopy.brand.trimmingCharacters(in: .whitespaces)
+                            let cleanedNotes = clothingItemCopy.notes.trimmingCharacters(in: .whitespaces)
+                            if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false){
+                                clothingItem.name = clothingItemCopy.name
+                                clothingItem.category = clothingItemCopy.category
+                                clothingItem.fit = clothingItemCopy.fit
+                                clothingItem.mainColor = clothingItemCopy.mainColor
+                                clothingItem.accentColor = clothingItemCopy.accentColor
+                                clothingItem.brand = clothingItemCopy.brand
+                                clothingItem.notes = cleanedNotes
+                            }
+                            clicked.toggle()
+                            
+                        }.buttonStyle(.borderedProminent).tint(buttonColor)
+                        Spacer()
                     }
                 }
                 
                 
                 //.alert and message functions (with use of isPresented field triggered by a button) for forms was learned in tutorial at "hacker with swift: Presenting an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/presenting-an-alert
-        }.alert("\(popup)", isPresented: $clicked){
+        }.navigationTitle("Edit Clothing Item").foregroundColor(subheaderColor).scrollContentBackground(.hidden).background(backgroundColor).alert("\(popup)", isPresented: $clicked){
                 
                 //Having a button in alert was learned in tutorial at "hacker with swift: how to show an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/how-to-show-an-alert

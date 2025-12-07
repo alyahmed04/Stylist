@@ -7,6 +7,9 @@ struct HomeView: View {
     
     // Our existing auth view model
     @EnvironmentObject var authViewModel: AuthViewModel
+    
+    //Learned from:
+    //https://developer.apple.com/documentation/swiftui/colorpicker
     @State private var headerColor =
            Color(.sRGB, red: 0.32, green: 0.18, blue: 0.11)
     @State private var subheaderColor =

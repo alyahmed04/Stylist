@@ -25,13 +25,22 @@ struct AddItem: View {
     @State private var accentColor: ColorFamily? = ColorFamily.none
     @State private var brand: String = ""
     @State private var notes: String = ""
-    //@State private var favorite: Bool = false
     
     
     @State private var cleanedName: String = ""
     @State private var cleanedBrand: String = ""
     
     
+    //Learned from:
+    //https://developer.apple.com/documentation/swiftui/colorpicker
+    @State private var backgroundColor =
+           Color(.sRGB, red: 1, green: 0.93, blue: 0.82)
+    
+    @State private var buttonColor =
+           Color(.sRGB, red: 1, green: 0.85, blue: 0.62)
+    
+    @State private var subheaderColor =
+           Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
     
     var popup: String {
         cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil ? "Sucess!" : "Error!"
@@ -45,12 +54,13 @@ struct AddItem: View {
     
     var body: some View {
         
-       
+            //Form Styling Learned from:
+            //https://sarunw.com/posts/swiftui-form-styling/
             Form{
                 
                 //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
                 //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
-                Section("Name"){
+                Section("Name (Required)"){
                     //TextField learned from apple documentation
                     //https://developer.apple.com/documentation/swiftui/textfield
                     TextField("Enter Name", text: $name)
@@ -126,7 +136,7 @@ struct AddItem: View {
                 Section("Brand"){
                     //Learned from Apple Picker Documentation
                     //https://developer.apple.com/documentation/SwiftUI/Picker
-                    TextField("Enter Brand", text: $brand)
+                    TextField("Enter Brand (Required)", text: $brand)
                 }
                 
                 Section("Notes"){
@@ -137,24 +147,27 @@ struct AddItem: View {
                 
                 
                 Section{
-                    
-                    Button("Save changes") {
-                        cleanedName = name.trimmingCharacters(in: .whitespaces)
-                        cleanedBrand = brand.trimmingCharacters(in: .whitespaces)
-                        let cleanedNotes = notes.trimmingCharacters(in: .whitespaces)
-                        if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil){
-                            let clothingItem = ClothingItem(name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand)
-                            authVM.currentUser!.closet.append(clothingItem)
-                        }
-                        clicked.toggle()
-                        
+                    HStack{
+                        Spacer()
+                        Button("Save changes") {
+                            cleanedName = name.trimmingCharacters(in: .whitespaces)
+                            cleanedBrand = brand.trimmingCharacters(in: .whitespaces)
+                            let cleanedNotes = notes.trimmingCharacters(in: .whitespaces)
+                            if(cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil){
+                                let clothingItem = ClothingItem(name: cleanedName, category: category!, mainColor: mainColor!, fit: fit!, notes: cleanedNotes, brand: brand)
+                                authVM.currentUser!.closet.append(clothingItem)
+                            }
+                            clicked.toggle()
+                            
+                        }.buttonStyle(.borderedProminent).tint(buttonColor)
+                        Spacer()
                     }
                 }
                 
                 
                 //.alert and message functions (with use of isPresented field triggered by a button) for forms was learned in tutorial at "hacker with swift: Presenting an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/presenting-an-alert
-            }.alert("\(popup)", isPresented: $clicked){
+            }.navigationTitle("Add Clothing Item").foregroundColor(subheaderColor).scrollContentBackground(.hidden).background(backgroundColor).alert("\(popup)", isPresented: $clicked){
                 
                 //Having a button in alert was learned in tutorial at "hacker with swift: how to show an alert"
                 //https://www.hackingwithswift.com/quick-start/swiftui/how-to-show-an-alert

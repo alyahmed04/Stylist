@@ -20,9 +20,29 @@ struct OutfitRecommendation: View {
     @State private var errorMessage: String?
     @State private var recommendationText: String?
     
+    //Learned from:
+    //https://developer.apple.com/documentation/swiftui/colorpicker
+    @State private var backgroundColor =
+           Color(.sRGB, red: 1, green: 0.93, blue: 0.82)
+    
+    @State private var subheaderColor =
+           Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
+    
+    
+    @State private var buttonColor =
+        Color(.sRGB, red: 1, green: 0.85, blue: 0.62)
+    
+     var statusColor: Color {
+        isSubmitDisabled == true ? .secondary : buttonColor
+    }
+    
+    
+    
     
     var body: some View {
        
+        
+        
         //Styling for form + navigation stack from
         //https://sarunw.com/posts/swiftui-form-styling/
         NavigationView{
@@ -58,7 +78,7 @@ struct OutfitRecommendation: View {
                     Section("Weather"){
                         //Learned from Apple Picker Documentation
                         //https://developer.apple.com/documentation/SwiftUI/Picker
-                        TextField("Enter Weather Condition", text: $weather)
+                        TextField("Enter Weather Condition (Required)", text: $weather)
                     }
                     
                     Section("Additonal Notes (Optional)"){
@@ -90,7 +110,7 @@ struct OutfitRecommendation: View {
                                 }
                             }
                             .buttonStyle(.glassProminent)
-                            .disabled(isSubmitDisabled)  // 🔹 NEW helper below
+                            .disabled(isSubmitDisabled).tint(statusColor)  // 🔹 NEW helper below
                             
                             Spacer()
                         }
@@ -127,7 +147,7 @@ struct OutfitRecommendation: View {
                     
                 }
                 
-            }.navigationTitle("Outfit Recommendation")
+            }.foregroundColor(subheaderColor).scrollContentBackground(.hidden).background(backgroundColor).navigationTitle("Outfit Recommendation")
 
         }
         
