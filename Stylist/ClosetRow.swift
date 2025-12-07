@@ -34,7 +34,7 @@ struct ClosetRow: View {
         
         //Learned how to make a copy for class objects and code snippet below from
         //https://www.hackingwithswift.com/example-code/system/how-to-copy-objects-in-swift-using-copy
-        var clothingItemCopy = clothingItem.copy() as! ClothingItem
+       
         
         NavigationStack{
             VStack(alignment: .leading, spacing: 12) {
@@ -116,7 +116,8 @@ struct ClosetRow: View {
                     Spacer()
                     Spacer()
                     NavigationLink{
-                        EditItem(clothingItem: clothingItem, clothingItemCopy: clothingItemCopy)
+                       // var clothingItemCopy = clothingItem.copy() as! ClothingItem
+                        EditItem(clothingItem: clothingItem, clothingItemCopy: clothingItem.copy() as! ClothingItem)
                     }   label:{
                         HStack{
                             Image(systemName: "pencil").foregroundStyle(.blue)

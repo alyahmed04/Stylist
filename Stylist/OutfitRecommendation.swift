@@ -110,10 +110,6 @@ struct OutfitRecommendation: View {
                 if let text = recommendationText {
                    
                     Section("Your Recommendation") {
-                        //Learned that Text can intpret markdown from
-                        //https://www.hackingwithswift.com/quick-start/swiftui/how-to-render-markdown-content-in-text
-                        //Learned how to get variables to display markdown from:
-                        //https://stackoverflow.com/questions/71484662/swiftui-text-markdown-support-for-string-variables-or-string-interpolation-not-w
                         Text(.init(text))
                             .font(.body)
                             .fixedSize(horizontal: false, vertical: true)

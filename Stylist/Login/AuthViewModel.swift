@@ -47,7 +47,7 @@ class AuthViewModel: ObservableObject {
     var sampleUser: [User] = [User(id: "1", email: "student@example.com", name: "Test")]
     
     
-    @State private var modelData = ModelData()
+   // @State private var modelData = ModelData()
     
     @Published var isAuthenticated = false {
         didSet {
@@ -140,13 +140,13 @@ class AuthViewModel: ObservableObject {
             
             // Mock registration - replace with real API
             // In real app, check if email already exists
-            modelData.currentUser = User(
-                id: UUID().uuidString,
-                email: email,
-                name: name,
-            )
+//            modelData.currentUser = User(
+//                id: UUID().uuidString,
+//                email: email,
+//                name: name,
+//            )
             
-            self.currentUser = modelData.currentUser!
+          //  self.currentUser = modelData.currentUser!
             self.isAuthenticated = true
             self.startSession()
             self.isLoading = false

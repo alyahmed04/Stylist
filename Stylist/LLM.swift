@@ -104,7 +104,7 @@ final class LLM {
         - A short explanation (1–2 sentences)
 
         RESPONSE STYLE:
-        Use Markdown to format your response to make the most engaging message and use bullet points. Do NOT use JSON.
+        Use Markdown to format your response to make the most engaging message and use bullet points. Keep response short. Do NOT use JSON.
         """
         
         // Build the HTTP body for Chat Completions
