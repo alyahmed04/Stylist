@@ -140,13 +140,14 @@ class AuthViewModel: ObservableObject {
             
             // Mock registration - replace with real API
             // In real app, check if email already exists
-//            modelData.currentUser = User(
-//                id: UUID().uuidString,
-//                email: email,
-//                name: name,
-//            )
+                let user = User(
+                id: UUID().uuidString,
+                email: email,
+                name: name,
+            )
+            User.sampleUser.append(user)
             
-          //  self.currentUser = modelData.currentUser!
+            self.currentUser = user
             self.isAuthenticated = true
             self.startSession()
             self.isLoading = false
