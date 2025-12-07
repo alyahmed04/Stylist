@@ -25,10 +25,10 @@ struct HomeView: View {
                     // Style Quiz card
                     quizCard
                     
-                    settingsSection
-                    
                     // Tip of the Day
                     tipCard
+                    
+                    settingsSection
                 }
                 .padding()
             }

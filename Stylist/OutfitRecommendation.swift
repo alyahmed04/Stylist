@@ -20,15 +20,6 @@ struct OutfitRecommendation: View {
     @State private var errorMessage: String?
     @State private var recommendationText: String?
     
-    //Learned from
-    //https://swiftontap.com/navigationlink
-    struct SampleView: View {
-        var body: some View {
-            VStack{
-                
-            }.navigationTitle("Your Recommendation")
-        }
-    }
     
     var body: some View {
        
@@ -36,90 +27,108 @@ struct OutfitRecommendation: View {
         //https://sarunw.com/posts/swiftui-form-styling/
         NavigationView{
             Form{
-                //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
-                //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
-                Section("Occasion"){
-                    List{
-                        Picker("Occasion: ", selection: $occasion) {
-                            Text("Casual").tag(Occasion.casual as Occasion?)
-                            Text("Smart Casual").tag(Occasion.smartCasual as Occasion?)
-                            Text("Active").tag(Occasion.active as Occasion?)
-                            Text("Business").tag(Occasion.business as Occasion?)
-                            Text("Formal").tag(Occasion.formal as Occasion?)
+                if(recommendationText == nil){
+                    //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
+                    //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
+                    Section("Occasion"){
+                        List{
+                            Picker("Occasion: ", selection: $occasion) {
+                                Text("Casual").tag(Occasion.casual as Occasion?)
+                                Text("Smart Casual").tag(Occasion.smartCasual as Occasion?)
+                                Text("Active").tag(Occasion.active as Occasion?)
+                                Text("Business").tag(Occasion.business as Occasion?)
+                                Text("Formal").tag(Occasion.formal as Occasion?)
+                            }
+                            .pickerStyle(.menu)
                         }
-                        .pickerStyle(.menu)
                     }
-                }
-                Section("Fit"){
-                    List{
-                        Picker("Fit: ", selection: $fit) {
-                            Text("Regular").tag(Fit.regular as Fit?)
-                            Text("Relaxed").tag(Fit.relaxed as Fit?)
-                            Text("Oversized").tag(Fit.oversized as Fit?)
-                            Text("Slim").tag(Fit.slim as Fit?)
+                    Section("Fit"){
+                        List{
+                            Picker("Fit: ", selection: $fit) {
+                                Text("Regular").tag(Fit.regular as Fit?)
+                                Text("Relaxed").tag(Fit.relaxed as Fit?)
+                                Text("Oversized").tag(Fit.oversized as Fit?)
+                                Text("Slim").tag(Fit.slim as Fit?)
+                            }
+                            .pickerStyle(.menu)
                         }
-                        .pickerStyle(.menu)
+                        
                     }
                     
-                }
-                
-                Section("Weather"){
-                    //Learned from Apple Picker Documentation
-                    //https://developer.apple.com/documentation/SwiftUI/Picker
-                    TextField("Enter Weather Condition", text: $weather)
-                }
-                
-                Section("Additonal Notes (Optional)"){
-                    //Learned from hacking with swift
-                    //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
-                    TextField("Enter Notes", text: $notes)
-                }
-                
-                Section{
-                    HStack{
-                        Spacer()
-                        //Disabled button feature learned from:
-                        //https://www.hackingwithswift.com/books/ios-swiftui/validating-and-disabling-forms
-                        
-                        // CHANGED: NavigationLink -> Button that calls the LLM
-                        Button {
-                            generateRecommendation()
-                        } label: {
-                            if isLoading {
-                                ProgressView()
-                            } else {
-                                HStack{
-                                    Image(systemName: "paperplane.fill").foregroundStyle(.blue)
-                                    Text("Submit").foregroundStyle(.blue)
+                    Section("Weather"){
+                        //Learned from Apple Picker Documentation
+                        //https://developer.apple.com/documentation/SwiftUI/Picker
+                        TextField("Enter Weather Condition", text: $weather)
+                    }
+                    
+                    Section("Additonal Notes (Optional)"){
+                        //Learned from hacking with swift
+                        //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
+                        TextField("Enter Notes", text: $notes)
+                    }
+                    
+                    Section{
+                        HStack{
+                            Spacer()
+                            //Disabled button feature learned from:
+                            //https://www.hackingwithswift.com/books/ios-swiftui/validating-and-disabling-forms
+                            
+                            // CHANGED: NavigationLink -> Button that calls the LLM
+                            Button {
+                                
+                                
+                                generateRecommendation()
+                                
+                            } label: {
+                                if isLoading {
+                                    ProgressView()
+                                } else {
+                                    HStack{
+                                        Image(systemName: "paperplane.fill")
+                                        Text("Submit")
+                                    }
                                 }
                             }
+                            .buttonStyle(.glassProminent)
+                            .disabled(isSubmitDisabled)  // 🔹 NEW helper below
+                            
+                            Spacer()
                         }
-                        .buttonStyle(.glassProminent)
-                        .disabled(isSubmitDisabled)  // 🔹 NEW helper below
-                        
-                        Spacer()
                     }
-                }
-                
-                // show error from LLM
-                if let errorMessage = errorMessage {
-                    Section("Error") {
-                        Text(errorMessage)
-                            .foregroundColor(.red)
-                            .font(.footnote)
+                    
+                    // show error from LLM
+                    if let errorMessage = errorMessage {
+                        Section("Error") {
+                            Text(errorMessage)
+                                .foregroundColor(.red)
+                                .font(.footnote)
+                        }
                     }
                 }
                 
                 // show recommendation text from LLM
                 if let text = recommendationText {
+                   
                     Section("Your Recommendation") {
                         Text(text)
                             .font(.body)
                             .fixedSize(horizontal: false, vertical: true)
                     }
+                    HStack{
+                        Spacer()
+                        Button{
+                            recommendationText = nil
+                        } label:{
+                            Text("Ok")
+                            
+                        }.buttonStyle(.borderedProminent)
+                        Spacer()
+                    }
+                    
                 }
                 
             }.navigationTitle("Outfit Recommendation")
+
         }
         
     }
@@ -162,6 +171,5 @@ struct OutfitRecommendation: View {
 
 #Preview {
     OutfitRecommendation()
-        .environment(ModelData())          // needed because we use @Environment(ModelData.self)
         .environmentObject(AuthViewModel())// needed because we use @EnvironmentObject
 }

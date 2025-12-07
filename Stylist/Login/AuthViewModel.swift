@@ -205,6 +205,7 @@ class AuthViewModel: ObservableObject {
         errorMessage = nil
         sessionTimer?.invalidate()
         sessionTimer = nil
+        dailyTip = ""
     }
     
     func completeLogout() {
@@ -218,6 +219,7 @@ class AuthViewModel: ObservableObject {
         errorMessage = nil
         sessionTimer?.invalidate()
         sessionTimer = nil
+        dailyTip = ""
     }
     
     // MARK: - Password Reset
@@ -267,6 +269,8 @@ class AuthViewModel: ObservableObject {
         }
     }
 }
+    
+    
     
     // MARK: - User Persistence
     
