@@ -43,7 +43,7 @@ final class LLM {
     private init() {}
     
     // Aly's API key will go here
-    private let apiKey = "YOUR_OPENAI_API_KEY_HERE"
+    private let apiKey = "ALY's API KEY"
     
     // OpenAI Chat Completions endpoint
     private let endpoint = URL(string: "https://api.openai.com/v1/chat/completions")!
@@ -245,6 +245,94 @@ final class LLM {
             }
         }
 
+        task.resume()
+    }
+    
+    func generateOutfitsFromStyleQuiz(
+        quiz: StyleQuiz,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        // Build a prompt that uses the quiz answers only
+        let prompt = """
+        You are a personal fashion stylist.
+        
+        The user completed a style quiz with these answers:
+        - Preferred overall style: \(quiz.style)
+        - Preferred fit: \(quiz.fit)
+        - Favorite colors: \(quiz.color)
+        - Shopping frequency: \(quiz.shoppingFreq)
+        
+        TASK:
+        Based on these preferences, suggest 2–3 complete outfit ideas.
+        
+        For each outfit, include:
+        - A short outfit name
+        - Description of the outfit (top, bottom, footwear, outerwear if needed, and accessories)
+        - Mention colors and fits that match their quiz answers
+        
+        IMPORTANT:
+        - These are general outfit ideas, not tied to any specific closet JSON.
+        - Use plain text with bullet points.
+        - Do NOT respond in JSON.
+        """
+        
+        let body: [String: Any] = [
+            "model": modelName,
+            "messages": [
+                [
+                    "role": "system",
+                    "content": "You are a helpful fashion stylist that suggests complete outfits based on quiz preferences."
+                ],
+                [
+                    "role": "user",
+                    "content": prompt
+                ]
+            ],
+            "temperature": 0.8
+        ]
+        
+        guard let bodyData = try? JSONSerialization.data(withJSONObject: body, options: []) else {
+            completion(.failure(LLMError.encodingError))
+            return
+        }
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.httpBody = bodyData
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(LLMError.noData))
+                    return
+                }
+                
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                       let choices = json["choices"] as? [[String: Any]],
+                       let first = choices.first,
+                       let message = first["message"] as? [String: Any],
+                       let content = message["content"] as? String {
+                        
+                        let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
+                        completion(.success(trimmed))
+                    } else {
+                        let raw = String(data: data, encoding: .utf8) ?? "Unknown response"
+                        completion(.failure(LLMError.invalidResponse(raw)))
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+        
         task.resume()
     }
 }
