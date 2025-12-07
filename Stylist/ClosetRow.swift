@@ -130,8 +130,7 @@ struct ClosetRow: View {
                 }
                 
                 
-                
-                
+            
             }
         }
     }

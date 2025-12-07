@@ -14,7 +14,6 @@ struct AddItem: View {
     
     //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
     //https://developer.apple.com/tutorials/swiftui/handling-user-input
-   // @Environment(ModelData.self) var modelData
     @EnvironmentObject var authVM: AuthViewModel
    
     
@@ -36,14 +35,12 @@ struct AddItem: View {
     @State private var backgroundColor =
            Color(.sRGB, red: 1, green: 0.93, blue: 0.82)
     
-    @State private var buttonColor =
-           Color(.sRGB, red: 1, green: 0.85, blue: 0.62)
     
     @State private var subheaderColor =
            Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
     
     var popup: String {
-        cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil ? "Sucess!" : "Error!"
+        cleanedName.isEmpty == false && cleanedBrand.isEmpty == false && fit != nil && category != nil && mainColor != nil ? "Success!" : "Error!"
     }
     
     //Learned from Apple dismiss documentation and first discovered in bindable documentation
@@ -159,7 +156,7 @@ struct AddItem: View {
                             }
                             clicked.toggle()
                             
-                        }.buttonStyle(.borderedProminent).tint(buttonColor)
+                        }.buttonStyle(.borderedProminent).tint(.brown).foregroundStyle(.white)
                         Spacer()
                     }
                 }

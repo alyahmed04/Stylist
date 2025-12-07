@@ -28,6 +28,17 @@ struct StyleQuizView: View {
     let colorChoices = ["Neutrals", "Dark tones", "Bright colors"]
     let shoppingOptions = ["Weekly", "Monthly", "Rarely"]
     
+    
+    @State private var headerColor =
+           Color(.sRGB, red: 0.32, green: 0.18, blue: 0.11)
+    @State private var subheaderColor =
+           Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
+    
+    @State private var backgroundColor =
+           Color(.sRGB, red: 1, green: 0.93, blue: 0.82)
+    
+
+    
     // LLM state
     @State private var isLoading = false
     @State private var quizRecommendation: String?
@@ -41,6 +52,8 @@ struct StyleQuizView: View {
             color: color,
             shoppingFreq: shoppingFreq
         )
+        
+        
         
         // If you later add something like:
         // authVM.updateUserStyleQuiz(quiz)
@@ -75,10 +88,10 @@ struct StyleQuizView: View {
                 Text("Style Quiz")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .padding(.top)
+                    .padding(.top).foregroundStyle(headerColor)
                 
                 Text("Tell us about your style so we can recommend outfits you’ll love.")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(subheaderColor)
                 
                 // Style preference
                 QuestionPicker(
@@ -150,7 +163,7 @@ struct StyleQuizView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background((style.isEmpty || fit.isEmpty || color.isEmpty || shoppingFreq.isEmpty || isLoading) ? Color.gray : Color.blue)
+                    .background((style.isEmpty || fit.isEmpty || color.isEmpty || shoppingFreq.isEmpty || isLoading) ? Color.gray : .brown)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
@@ -159,12 +172,16 @@ struct StyleQuizView: View {
                 Spacer()
             }
             .padding()
-        }
+        }.background(backgroundColor)
     }
 }
 
 // Picker component
 struct QuestionPicker: View {
+    
+    @State private var headerColor =
+           Color(.sRGB, red: 0.32, green: 0.18, blue: 0.11)
+    
     var title: String
     var options: [String]
     @Binding var selection: String
@@ -172,7 +189,7 @@ struct QuestionPicker: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
-                .font(.headline)
+                .font(.headline).foregroundStyle(headerColor)
             
             Picker("", selection: $selection) {
                 ForEach(options, id: \.self) { item in

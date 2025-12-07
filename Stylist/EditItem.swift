@@ -8,6 +8,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EditItem: View {
     @State private var clicked: Bool = false
@@ -33,7 +34,7 @@ struct EditItem: View {
     
     
     var popup: String {
-        cleanedName.isEmpty == false && cleanedBrand.isEmpty == false ? "Sucess!" : "Error!"
+        cleanedName.isEmpty == false && cleanedBrand.isEmpty == false ? "Success!" : "Error!"
     }
     
     //Learned from:
@@ -43,10 +44,6 @@ struct EditItem: View {
     
     @State private var subheaderColor =
            Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
-    
-    @State private var buttonColor =
-           Color(.sRGB, red: 1, green: 0.85, blue: 0.62)
-    
     
     
     //Learned from Apple dismiss documentation and first discovered in bindable documentation
@@ -170,7 +167,7 @@ struct EditItem: View {
                             }
                             clicked.toggle()
                             
-                        }.buttonStyle(.borderedProminent).tint(buttonColor)
+                        }.buttonStyle(.borderedProminent).tint(.brown).foregroundStyle(.white)
                         Spacer()
                     }
                 }
@@ -210,7 +207,16 @@ struct EditItem: View {
 
 
 #Preview {
-    //Learned and gotten from 'Handling user input' that was assigned in the 'Introducing SwiftUI' apple tutorial path
-    //https://developer.apple.com/tutorials/swiftui/handling-user-input
-    //EditItem().environment(ModelData())
+    let preview = Preview()
+    preview.addUsers(User.sampleUser)
+    preview.addClothingItems(ClothingItem.clothingItems)
+    
+    return EditItem(clothingItem: ClothingItem.clothingItems[0], clothingItemCopy: (ClothingItem.clothingItems[0].copy() as! ClothingItem))
+        .modelContainer(preview.container)
+        .environmentObject({
+            let vm = AuthViewModel()
+            vm.currentUser = User.sampleUser[0]
+            vm.isAuthenticated = true
+            return vm
+        }())
 }

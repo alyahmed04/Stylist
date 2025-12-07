@@ -29,11 +29,8 @@ struct OutfitRecommendation: View {
            Color(.sRGB, red: 0.40, green: 0.22, blue: 0.13)
     
     
-    @State private var buttonColor =
-        Color(.sRGB, red: 1, green: 0.85, blue: 0.62)
-    
      var statusColor: Color {
-        isSubmitDisabled == true ? .secondary : buttonColor
+         isSubmitDisabled == true ? .secondary : .brown
     }
     
     
@@ -110,7 +107,7 @@ struct OutfitRecommendation: View {
                                 }
                             }
                             .buttonStyle(.glassProminent)
-                            .disabled(isSubmitDisabled).tint(statusColor)  // 🔹 NEW helper below
+                            .disabled(isSubmitDisabled).tint(statusColor).foregroundStyle(.white)  // 🔹 NEW helper below
                             
                             Spacer()
                         }

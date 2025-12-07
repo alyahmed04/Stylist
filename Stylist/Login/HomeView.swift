@@ -78,7 +78,7 @@ struct HomeView: View {
                     .font(.footnote)
             } else {
                 // Shown for a second while we wait for the API call to work
-                Text("Naivigate to The Recommendation page to get your recommendation!")
+                Text("Navigate to The Recommendation page to get your recommendation!")
                     .font(.footnote)
                     .foregroundStyle(subheaderColor)
             }
