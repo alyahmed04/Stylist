@@ -97,19 +97,28 @@ struct HomeView: View {
     }
     
     
-    private var tipCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Tip of the Day")
-                .font(.headline)
-            Text("Start with a neutral base and add one accent color. This makes outfits easier to mix and match.")
+   private var tipCard: some View {
+    VStack(alignment: .leading, spacing: 8) {
+        Text("Tip of the Day")
+            .font(.headline)
+        
+        if let tip = authViewModel.dailyTip {
+            Text(tip)
                 .font(.footnote)
+        } else {
+            // Shown for a second while we wait for the API call to work
+            Text("Loading a style tip for you...")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
         }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(radius: 3, y: 2)
     }
+    .padding()
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(.ultraThinMaterial)
+    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+    .shadow(radius: 3, y: 2)
+}
+
     
     private var settingsSection: some View {
         VStack(spacing: 15) {
