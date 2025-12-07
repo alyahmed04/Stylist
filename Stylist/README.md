@@ -6,4 +6,6 @@ People often struggle to dress well or find their own particular style. Our app 
 
 ## Step-by-step Intructions
 
-Users will 
+- New users will click the sign up button and enter the following:
+    * Full name
+    *
