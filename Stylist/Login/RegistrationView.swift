@@ -27,7 +27,7 @@ struct RegistrationView: View {
                     VStack(spacing: 10) {
                         Image(systemName: "person.badge.plus.fill")
                             .font(.system(size: 70))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.brown)
                             .padding(.top, 20)
                         
                         Text("Create Account")
@@ -214,7 +214,7 @@ struct RegistrationView: View {
                     .background(
                         (name.isEmpty || email.isEmpty || password.isEmpty || 
                          confirmPassword.isEmpty || !agreedToTerms || authVM.isLoading) ?
-                        Color.gray : Color.blue
+                        Color.gray : .brown
                     )
                     .cornerRadius(10)
                     .disabled(name.isEmpty || email.isEmpty || password.isEmpty || 
