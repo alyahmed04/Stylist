@@ -15,6 +15,7 @@ struct LoginView: View {
     @State private var showRegistration = false
     @State private var showForgotPassword = false
     
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -144,7 +145,7 @@ struct LoginView: View {
                     }
                     .background(
                         (email.isEmpty || password.isEmpty || authVM.isLoading) ? 
-                        Color.gray : Color.blue
+                        Color.gray : .brown
                     )
                     .cornerRadius(10)
                     .disabled(email.isEmpty || password.isEmpty || authVM.isLoading)
