@@ -24,7 +24,7 @@ struct ForgotPasswordView: View {
                     VStack(spacing: 10) {
                         Image(systemName: "key.fill")
                             .font(.system(size: 70))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.brown)
                             .padding(.top, 40)
                         
                         Text("Forgot Password?")
@@ -95,7 +95,7 @@ struct ForgotPasswordView: View {
                         }
                         .background(
                             (email.isEmpty || authVM.isLoading) ? 
-                            Color.gray : Color.blue
+                            Color.gray : .brown
                         )
                         .cornerRadius(10)
                         .disabled(email.isEmpty || authVM.isLoading)
