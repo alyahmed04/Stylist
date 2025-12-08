@@ -75,6 +75,12 @@ struct Preview{
                 }
             }
     
+    func addStylePreferences(_ examples: [StylePreferences]){
+            examples.forEach { example in
+                container.mainContext.insert(example)
+            }
+        }
+    
         
     
     

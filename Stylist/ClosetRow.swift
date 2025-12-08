@@ -117,7 +117,6 @@ struct ClosetRow: View {
                     Spacer()
                     Spacer()
                     NavigationLink{
-                       // var clothingItemCopy = clothingItem.copy() as! ClothingItem
                         EditItem(clothingItem: clothingItem, clothingItemCopy: clothingItem.copy() as! ClothingItem)
                     }   label:{
                         HStack{

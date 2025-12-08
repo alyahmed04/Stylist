@@ -45,5 +45,6 @@ struct StylistApp: App {
     init() {
         preview.addUsers(User.sampleUser)
         preview.addClothingItems(ClothingItem.clothingItems)
+        preview.addStylePreferences(StylePreferences.stylePreferences)
         }
 }

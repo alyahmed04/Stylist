@@ -94,13 +94,23 @@ struct HomeView: View {
     
     private var quizCard: some View {
         NavigationLink {
-            StyleQuizView()
+            
+            StyleQuizView(style: authViewModel.currentUser?.stylePreferences?.style ?? "", fit: authViewModel.currentUser?.stylePreferences?.fit ?? "", color: authViewModel.currentUser?.stylePreferences?.color ?? "", shoppingFreq: authViewModel.currentUser?.stylePreferences?.shoppingFreq ?? "")
         } label: {
-            HomeCard(
-                title: "Style Quiz",
-                subtitle: "Tell us your style so future suggestions get better.",
-                systemImage: "questionmark.circle"
-            )
+            if(authViewModel.currentUser?.stylePreferences == nil){
+                HomeCard(
+                    title: "Style Quiz",
+                    subtitle: "Tell us your style so future suggestions get better.",
+                    systemImage: "questionmark.circle"
+                )
+            }
+            else{
+                HomeCard(
+                    title: "Update your Style Preferences",
+                    subtitle: "Give us your new style to get a new suggestion.",
+                    systemImage: "questionmark.circle"
+                )
+            }
         }
         .buttonStyle(.plain)
     }
@@ -238,7 +248,7 @@ struct HomeCard: View {
     let preview = Preview()
     preview.addUsers(User.sampleUser)
     preview.addClothingItems(ClothingItem.clothingItems)
-    
+    preview.addStylePreferences(StylePreferences.stylePreferences)
     
     return HomeView()
         .modelContainer(preview.container).environmentObject({

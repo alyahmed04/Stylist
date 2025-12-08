@@ -257,7 +257,7 @@ final class LLM {
     //Learned thay ChatGPT can return markdown to be interpreted from:
     //https://community.openai.com/t/response-formatting-b-text-b-instead-of-text/687054
     func generateOutfitsFromStyleQuiz(
-        quiz: StyleQuiz,
+        quiz: StylePreferences,
         completion: @escaping (Result<String, Error>) -> Void
     ) {
         // Build a prompt that uses the quiz answers only

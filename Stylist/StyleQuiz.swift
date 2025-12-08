@@ -16,11 +16,11 @@ struct StyleQuizView: View {
     @EnvironmentObject var authVM: AuthViewModel
     
     // Quiz answers
-    @State private var style = ""
-    @State private var fit = ""
-    @State private var color = ""
-    @State private var shoppingFreq = ""
-    @State private var favoriteOutfit = ""
+    @State var style: String
+    @State var fit: String
+    @State var color:String
+    @State var shoppingFreq: String
+    
     
     // Options
     let styleOptions = ["Casual", "Streetwear", "Professional", "Active"]
@@ -45,8 +45,8 @@ struct StyleQuizView: View {
     @State private var errorMessage: String?
     
     // Save quiz results into a StyleQuiz object (you can later store this on the user)
-    private func saveQuizResults() -> StyleQuiz {
-        let quiz = StyleQuiz(
+    private func saveQuizResults() -> StylePreferences {
+        let quiz = StylePreferences(
             style: style,
             fit: fit,
             color: color,
@@ -63,7 +63,7 @@ struct StyleQuizView: View {
     }
     
     // Call the LLM using the quiz answers (no closet)
-    private func generateStyleQuizOutfits(from quiz: StyleQuiz) {
+    private func generateStyleQuizOutfits(from quiz: StylePreferences) {
         isLoading = true
         errorMessage = nil
         quizRecommendation = nil
@@ -85,7 +85,7 @@ struct StyleQuizView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 25) {
                 
-                Text("Style Quiz")
+                Text("Style Preferences")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.top).foregroundStyle(headerColor)
@@ -149,7 +149,7 @@ struct StyleQuizView: View {
                 // Submit / Finish button
                 Button {
                     let quiz = saveQuizResults()
-                    authVM.currentUser?.quizzes.append(quiz)
+                    authVM.currentUser?.stylePreferences = quiz
                     generateStyleQuizOutfits(from: quiz)
                 } label: {
                     HStack {
@@ -201,7 +201,18 @@ struct QuestionPicker: View {
     }
 }
 
+
 #Preview {
-    StyleQuizView()
-        .environmentObject(AuthViewModel())
+    let preview = Preview()
+    preview.addUsers(User.sampleUser)
+    preview.addClothingItems(ClothingItem.clothingItems)
+    preview.addStylePreferences(StylePreferences.stylePreferences)
+    
+    
+    return  StyleQuizView(style: "", fit: "", color: "", shoppingFreq: "").modelContainer(preview.container).environmentObject({
+        let vm = AuthViewModel()
+        vm.currentUser = User.sampleUser[0]
+        vm.isAuthenticated = true
+        return vm
+    }())
 }

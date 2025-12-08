@@ -28,6 +28,7 @@ struct MainTabView: View {
     let preview = Preview()
     preview.addUsers(User.sampleUser)
     preview.addClothingItems(ClothingItem.clothingItems)
+    preview.addStylePreferences(StylePreferences.stylePreferences)
     
     
     return MainTabView().modelContainer(preview.container).environmentObject({

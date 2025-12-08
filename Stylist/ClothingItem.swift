@@ -52,7 +52,6 @@ final class ClothingItem: Identifiable, Decodable, Encodable {
     
     enum CodingKeys: CodingKey {
         case id
-        case userId
         case name
         case category
         case mainColor

@@ -47,7 +47,6 @@ class AuthViewModel: ObservableObject {
     var sampleUser: [User] = [User(id: "1", email: "student@example.com", name: "Test")]
     
     
-   // @State private var modelData = ModelData()
     
     @Published var isAuthenticated = false {
         didSet {
