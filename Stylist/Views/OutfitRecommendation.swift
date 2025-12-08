@@ -138,7 +138,7 @@ struct OutfitRecommendation: View {
                         } label:{
                             Text("Ok")
                             
-                        }.buttonStyle(.borderedProminent)
+                        }.buttonStyle(.borderedProminent).tint(.brown).foregroundStyle(.white)
                         Spacer()
                     }
                     

@@ -96,7 +96,7 @@ class AuthViewModel: ObservableObject {
             guard let self = self else { return }
             
             // Mock authentication - replace with real API
-            if email.lowercased() == "student@example.com" && password == "password123" {
+            if email.lowercased() == "john@example.com" && password == "demo1234" {
                 // Success!
                 let user = User.sampleUser[0]
                 
@@ -104,14 +104,62 @@ class AuthViewModel: ObservableObject {
                 self.isAuthenticated = true
                 self.startSession()
                 self.refreshDailyTip()
-            } else if email.lowercased() == "demo@demo.com" && password == "demo1234" {
+            } else if email.lowercased() == "cathy@example.com" && password == "demo1234" {
                 // Additional demo account
                 let user = User.sampleUser[1]
                 self.currentUser = user
                 self.isAuthenticated = true
                 self.startSession()
                 self.refreshDailyTip()
-            } else {
+            }
+            else if email.lowercased() == "mark@example.com" && password == "demo1234" {
+                // Additional demo account
+                let user = User.sampleUser[2]
+                self.currentUser = user
+                self.isAuthenticated = true
+                self.startSession()
+                self.refreshDailyTip()
+            }
+            else if email.lowercased() == "cameron@example.com" && password == "demo1234" {
+                // Additional demo account
+                let user = User.sampleUser[3]
+                self.currentUser = user
+                self.isAuthenticated = true
+                self.startSession()
+                self.refreshDailyTip()
+            }
+            else if email.lowercased() == "jerry@example.com" && password == "demo1234" {
+                // Additional demo account
+                let user = User.sampleUser[4]
+                self.currentUser = user
+                self.isAuthenticated = true
+                self.startSession()
+                self.refreshDailyTip()
+            }
+            else if email.lowercased() == "west@example.com" && password == "demo1234" {
+                // Additional demo account
+                let user = User.sampleUser[5]
+                self.currentUser = user
+                self.isAuthenticated = true
+                self.startSession()
+                self.refreshDailyTip()
+            }
+            else if email.lowercased() == "sophie@demo.com" && password == "demo1234" {
+                // Additional demo account
+                let user = User.sampleUser[6]
+                self.currentUser = user
+                self.isAuthenticated = true
+                self.startSession()
+                self.refreshDailyTip()
+            }
+            else if email.lowercased() == "jasmine@demo.com" && password == "demo1234" {
+                // Additional demo account
+                let user = User.sampleUser[7]
+                self.currentUser = user
+                self.isAuthenticated = true
+                self.startSession()
+                self.refreshDailyTip()
+            }else {
                 // Failed
                 self.errorMessage = "Invalid email or password"
             }
