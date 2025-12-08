@@ -28,7 +28,7 @@ struct StyleQuizView: View {
     let fitOptions = ["Tight", "Tailored", "Relaxed", "Oversized"]
     let colorChoices = ["Neutrals", "Dark tones", "Bright colors"]
     let shoppingOptions = ["Weekly", "Monthly", "Rarely"]
-    let costOptions = ["Less than $50", "$50-100", "More than $100"]
+    let costOptions = [" < $50", "$50-100", "$100-$500","$500+"]
     
     
     @State private var headerColor =
