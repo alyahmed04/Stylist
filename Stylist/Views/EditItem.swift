@@ -2,7 +2,7 @@
 //  EditItem.swift
 //  Stylist
 //
-//
+// This file allows the user to edit a chosen item that was selected by clicking a row entry. The file takes in two parameters. The first parameter is a state variable that directly shows and effects actual list entry values. The second parameter is a copy of the state variable that allows the user to see the current value of fields they are about to edit. This allows them to make changes but it does not affect a list entry unless they save their changes at the bottom.
 //
 //  Created by Aly Ahmed on 11/20/25.
 //
@@ -60,12 +60,12 @@ struct EditItem: View {
             
             //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
             //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
-            Section("Name"){
+            Section("Name (Required)"){
                 //TextField learned from apple documentation
                 //https://developer.apple.com/documentation/swiftui/textfield
-                TextField("Enter Name (Required)", text: $clothingItemCopy.name)
+                TextField("Enter Name", text: $clothingItemCopy.name)
             }
-            Section("Fit"){
+            Section("Fit (Required)"){
                 List{
                     Picker("Fit: ", selection: $clothingItemCopy.fit) {
                         Text("Regular").tag(Fit.regular)
@@ -78,7 +78,7 @@ struct EditItem: View {
                 
             }
             
-            Section("Category"){
+            Section("Category (Required)"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
                 List{
@@ -93,7 +93,7 @@ struct EditItem: View {
                 }
             }
             
-            Section("Main Color"){
+            Section("Main Color (Required)"){
                 //Learned from hacking with swift
                 //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
                 List{
@@ -114,7 +114,7 @@ struct EditItem: View {
                 }
             }
             
-            Section("Accent Color"){
+            Section("Accent Color (Required)"){
                 //Gotten from TA FAQ
                 List{
                     Picker("Accent Color: ", selection: $clothingItemCopy.accentColor) {
@@ -134,13 +134,13 @@ struct EditItem: View {
                 }
             }
             
-            Section("Brand"){
+            Section("Brand (Required)"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
                 TextField("Enter Brand (Required)", text: $clothingItemCopy.brand)
             }
             
-            Section("Notes"){
+            Section("Notes (Optional)"){
                 //Learned from Apple Picker Documentation
                 //https://developer.apple.com/documentation/SwiftUI/Picker
                 TextField("Enter Item Notes", text: $clothingItemCopy.notes)

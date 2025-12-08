@@ -2,14 +2,16 @@
 //  OutfitRecommendation.swift
 //  Stylist
 //
+// This file allows users to get outfit recommendations based on the fields shown below based on their current closet entrys. The file calls the backend LLM file that handles the API call through the private function generateRecommendation(). Once the function is called it takes in the necessary fields shown below and the current signed in users closet items and sends it to the function in the LLM file. From there the recommendation is assigned to authModel lastRecommendation field and the recommendation is displayed on this page.
+//
 //  Created by Aly Ahmed on 11/17/25.
 //
 
 import SwiftUI
 
 struct OutfitRecommendation: View {
+    
     // access to closet and auth state
-   // @Environment(ModelData.self) var modelData
     @EnvironmentObject var authVM: AuthViewModel
     
     @State var occasion: Occasion? = nil
@@ -34,8 +36,6 @@ struct OutfitRecommendation: View {
     }
     
     
-    
-    
     var body: some View {
        
         
@@ -47,7 +47,7 @@ struct OutfitRecommendation: View {
                 if(recommendationText == nil){
                     //Section function for forms was seen (learned) in a Youtube Tutorial "Hacker with swift: Creating a form"
                     //https://www.hackingwithswift.com/books/ios-swiftui/creating-a-form
-                    Section("Occasion"){
+                    Section("Occasion (Required)"){
                         List{
                             Picker("Occasion: ", selection: $occasion) {
                                 Text("Casual").tag(Occasion.casual as Occasion?)
@@ -59,7 +59,7 @@ struct OutfitRecommendation: View {
                             .pickerStyle(.menu)
                         }
                     }
-                    Section("Fit"){
+                    Section("Fit (Required)"){
                         List{
                             Picker("Fit: ", selection: $fit) {
                                 Text("Regular").tag(Fit.regular as Fit?)
@@ -72,7 +72,7 @@ struct OutfitRecommendation: View {
                         
                     }
                     
-                    Section("Weather"){
+                    Section("Weather (Required)"){
                         //Learned from Apple Picker Documentation
                         //https://developer.apple.com/documentation/SwiftUI/Picker
                         TextField("Enter Weather Condition (Required)", text: $weather)

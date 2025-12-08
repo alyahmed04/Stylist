@@ -2,6 +2,7 @@
 //  Closet.swift
 //  Stylist
 //
+// This represents the list of items in the users closet. The list displays if there is a user in the authVM current user field. Moreover, the list uses the Closet Row class to display each clothing entry.
 //
 //  Created by Aly Ahmed on 11/15/25.
 //

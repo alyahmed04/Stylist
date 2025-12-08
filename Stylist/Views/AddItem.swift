@@ -2,6 +2,7 @@
 //  AddItem.swift
 //  Stylist
 //
+// This file allows the user to enter a new clothing item within their own personal closet. The file is navigated to from the add item navigation link on the closet page. The file enables users to enter required fields and either click save to add a new item or navigate out to not add a item.
 //
 //  Created by Aly Ahmed on 11/17/25.
 //
@@ -62,7 +63,7 @@ struct AddItem: View {
                     //https://developer.apple.com/documentation/swiftui/textfield
                     TextField("Enter Name", text: $name)
                 }
-                Section("Fit"){
+                Section("Fit (Required)"){
                     List{
                         Picker("Fit: ", selection: $fit) {
                             Text("Regular").tag(Fit.regular)
@@ -75,7 +76,7 @@ struct AddItem: View {
                     
                 }
                 
-                Section("Category"){
+                Section("Category (Required)"){
                     //Learned from Apple Picker Documentation
                     //https://developer.apple.com/documentation/SwiftUI/Picker
                     List{
@@ -90,7 +91,7 @@ struct AddItem: View {
                     }
                 }
                 
-                Section("Main Color"){
+                Section("Main Color (Required)"){
                     //Learned from hacking with swift
                     //https://www.hackingwithswift.com/books/ios-swiftui/selecting-dates-and-times-with-datepicker
                     List{
@@ -110,7 +111,7 @@ struct AddItem: View {
                     }
                 }
                 
-                Section("Accent Color"){
+                Section("Accent Color (Required)"){
                     //Gotten from TA FAQ
                     List{
                         Picker("Accent Color: ", selection: $accentColor) {
@@ -130,13 +131,13 @@ struct AddItem: View {
                     }
                 }
                 
-                Section("Brand"){
+                Section("Brand (Required)"){
                     //Learned from Apple Picker Documentation
                     //https://developer.apple.com/documentation/SwiftUI/Picker
                     TextField("Enter Brand (Required)", text: $brand)
                 }
                 
-                Section("Notes"){
+                Section("Notes (Optional)"){
                     //Learned from Apple Picker Documentation
                     //https://developer.apple.com/documentation/SwiftUI/Picker
                     TextField("Enter Item Notes", text: $notes)
