@@ -95,7 +95,7 @@ struct HomeView: View {
     private var quizCard: some View {
         NavigationLink {
             
-            StyleQuizView(style: authViewModel.currentUser?.stylePreferences?.style ?? "", fit: authViewModel.currentUser?.stylePreferences?.fit ?? "", color: authViewModel.currentUser?.stylePreferences?.color ?? "", shoppingFreq: authViewModel.currentUser?.stylePreferences?.shoppingFreq ?? "")
+            StyleQuizView(style: authViewModel.currentUser?.stylePreferences?.style ?? "", fit: authViewModel.currentUser?.stylePreferences?.fit ?? "", color: authViewModel.currentUser?.stylePreferences?.color ?? "", shoppingFreq: authViewModel.currentUser?.stylePreferences?.shoppingFreq ?? "", cost: authViewModel.currentUser?.stylePreferences?.cost ?? "")
         } label: {
             if(authViewModel.currentUser?.stylePreferences == nil){
                 HomeCard(
