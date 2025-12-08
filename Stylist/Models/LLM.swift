@@ -277,7 +277,7 @@ final class LLM {
         For each outfit, include:
         - A short outfit name
         - Very short description of the outfit (top, bottom, footwear, outerwear if needed, and accessories)
-        - Mention colors and fits that match their quiz answers
+        - Mention colors and fits that match their answers
         - Give brand names to each piece of clothing and compliment them to complete the outfit
         - Show the approximate price for each piece of clothing
         - No more than 500 characters
@@ -293,7 +293,7 @@ final class LLM {
             "messages": [
                 [
                     "role": "system",
-                    "content": "You are a helpful fashion stylist that suggests complete outfits based on quiz preferences."
+                    "content": "You are a helpful fashion stylist that suggests complete outfits based on the user's preferences."
                 ],
                 [
                     "role": "user",
