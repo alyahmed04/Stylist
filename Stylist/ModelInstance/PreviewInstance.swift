@@ -2,6 +2,8 @@
 //  PreviewInstance.swift
 //  Stylist
 //
+// This file sets
+//
 //  Created by Aly Ahmed on 11/23/25.
 //
 
@@ -26,9 +28,9 @@ struct Preview{
 //            container = try ModelContainer(for: User.self, ClothingItem.self, configurations: config1, config2)
             //Conversation:
             
-            let config = ModelConfiguration(for: User.self, ClothingItem.self, isStoredInMemoryOnly: true)
+            let config = ModelConfiguration(for: User.self, ClothingItem.self, StylePreferences.self, isStoredInMemoryOnly: true)
 
-            container = try ModelContainer(for: User.self, ClothingItem.self, configurations: config)
+            container = try ModelContainer(for: User.self, ClothingItem.self, StylePreferences.self, configurations: config)
         } catch {
             fatalError("Failed to configure SwiftData container.")
         }
