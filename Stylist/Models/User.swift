@@ -74,11 +74,7 @@ final class User: Identifiable, Decodable, Encodable{
         try container.encode(id, forKey: .id)
     }
     
-//    var hasCompletedQuiz: Bool {
-//        return (!quizzes.isEmpty)
-//    }
-    
-    
+        
 }
 
 

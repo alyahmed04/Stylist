@@ -36,12 +36,15 @@ struct StylistApp: App {
     let preview = Preview()
     @StateObject private var authViewModel = AuthViewModel()
     var body: some Scene {
-        //Gotten from AI
+        
         WindowGroup {
+            //Gotten from AI
             ContentView().modelContainer(preview.container).environmentObject(authViewModel)
         }
        
     }
+    //Code learned and gotten from:
+    //https://www.youtube.com/watch?v=tZq4mvqH9Fg&t=1002s
     init() {
         preview.addUsers(User.sampleUser)
         preview.addClothingItems(ClothingItem.clothingItems)

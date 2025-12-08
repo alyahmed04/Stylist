@@ -2,6 +2,8 @@
 //  PreviewInstance.swift
 //  Stylist
 //
+// This file sets up the model configuration and container that is used for the application. The file sets up the three models which include, user, clothingItem, and Style Preferences. The file also adds each one of these Models into the containers main context through the functions seen below.
+//
 //  Created by Aly Ahmed on 11/23/25.
 //
 
@@ -26,9 +28,9 @@ struct Preview{
 //            container = try ModelContainer(for: User.self, ClothingItem.self, configurations: config1, config2)
             //Conversation:
             
-            let config = ModelConfiguration(for: User.self, ClothingItem.self, isStoredInMemoryOnly: true)
+            let config = ModelConfiguration(for: User.self, ClothingItem.self, StylePreferences.self, isStoredInMemoryOnly: true)
 
-            container = try ModelContainer(for: User.self, ClothingItem.self, configurations: config)
+            container = try ModelContainer(for: User.self, ClothingItem.self, StylePreferences.self, configurations: config)
         } catch {
             fatalError("Failed to configure SwiftData container.")
         }

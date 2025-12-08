@@ -1,6 +1,16 @@
+//
+//  MainTabView.swift
+//  Stylist
+//
+//
+//
+//  Created by  on 11/15/25.
+//
+
+
 import SwiftUI
 import SwiftData
-// Main file for tab view
+
 
 struct MainTabView: View {
 

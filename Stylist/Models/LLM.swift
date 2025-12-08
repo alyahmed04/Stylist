@@ -269,14 +269,18 @@ final class LLM {
         - Preferred fit: \(quiz.fit)
         - Favorite colors: \(quiz.color)
         - Shopping frequency: \(quiz.shoppingFreq)
+        - Cost of clothing: \(quiz.cost)
         
         TASK:
-        Based on these preferences, suggest 2–3 complete outfit ideas.
+        Based on these preferences, suggest 1 complete outfit idea.
         
         For each outfit, include:
         - A short outfit name
-        - Description of the outfit (top, bottom, footwear, outerwear if needed, and accessories)
-        - Mention colors and fits that match their quiz answers
+        - Very short description of the outfit (top, bottom, footwear, outerwear if needed, and accessories)
+        - Mention colors and fits that match their answers
+        - Give brand names to each piece of clothing and compliment them to complete the outfit
+        - Show the approximate price for each piece of clothing
+        - No more than 500 characters
         
         IMPORTANT:
         - These are general outfit ideas, not tied to any specific closet JSON.
@@ -289,7 +293,7 @@ final class LLM {
             "messages": [
                 [
                     "role": "system",
-                    "content": "You are a helpful fashion stylist that suggests complete outfits based on quiz preferences."
+                    "content": "You are a helpful fashion stylist that suggests complete outfits based on the user's preferences."
                 ],
                 [
                     "role": "user",

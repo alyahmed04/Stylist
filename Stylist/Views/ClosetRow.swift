@@ -2,6 +2,7 @@
 //  ClosetRow.swift
 //  Stylist
 //
+// This file represents a specific instance of a clothing entry for a signed in user that has an item in their closet. The row contains an image of the general clothing type, information about the clothing item, an edit, and remove button. This class is used in the Closet class as rows for a list.
 //
 //  Created by Aly Ahmed on 11/15/25.
 //

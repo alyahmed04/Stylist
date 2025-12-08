@@ -32,9 +32,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7069B6A42EC9122F00D5273E /* Stylist */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			explicitFolders = (
-				Enums,
-			);
 			path = Stylist;
 			sourceTree = "<group>";
 		};

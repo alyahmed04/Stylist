@@ -20,6 +20,7 @@ struct StyleQuizView: View {
     @State var fit: String
     @State var color:String
     @State var shoppingFreq: String
+    @State var cost: String
     
     
     // Options
@@ -27,6 +28,7 @@ struct StyleQuizView: View {
     let fitOptions = ["Tight", "Tailored", "Relaxed", "Oversized"]
     let colorChoices = ["Neutrals", "Dark tones", "Bright colors"]
     let shoppingOptions = ["Weekly", "Monthly", "Rarely"]
+    let costOptions = ["Less than $50", "$50-100", "More than $100"]
     
     
     @State private var headerColor =
@@ -50,7 +52,8 @@ struct StyleQuizView: View {
             style: style,
             fit: fit,
             color: color,
-            shoppingFreq: shoppingFreq
+            shoppingFreq: shoppingFreq,
+            cost: cost
         )
         
         
@@ -119,6 +122,12 @@ struct StyleQuizView: View {
                     title: "How often do you shop for clothes?",
                     options: shoppingOptions,
                     selection: $shoppingFreq
+                    )
+                    
+                QuestionPicker(
+                    title: "What is your price range?",
+                    options: costOptions,
+                    selection: $cost
                 )
                 
                 // Error message from LLM
@@ -209,7 +218,7 @@ struct QuestionPicker: View {
     preview.addStylePreferences(StylePreferences.stylePreferences)
     
     
-    return  StyleQuizView(style: "", fit: "", color: "", shoppingFreq: "").modelContainer(preview.container).environmentObject({
+    return  StyleQuizView(style: "", fit: "", color: "", shoppingFreq: "", cost: "").modelContainer(preview.container).environmentObject({
         let vm = AuthViewModel()
         vm.currentUser = User.sampleUser[0]
         vm.isAuthenticated = true
