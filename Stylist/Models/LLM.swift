@@ -280,7 +280,7 @@ final class LLM {
         - Mention colors and fits that match their answers
         - Give brand names to each piece of clothing and compliment them to complete the outfit
         - Show the approximate price for each piece of clothing
-        - No more than 500 characters
+        - No more than 500 characters (DO NOT CROSS OUT WORDS)
         
         IMPORTANT:
         - These are general outfit ideas, not tied to any specific closet JSON.
