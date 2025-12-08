@@ -1,3 +1,13 @@
+
+//
+//  ClothingItem.swift
+//  Stylist
+//
+// The model that represents individual clothing items. The ClothingItem model is connected to users in an inverse relationship and have a field that stores the user object.
+//
+//  Created by Aly Ahmed on 12/7/25.
+//
+
 import SwiftUI
 import Foundation
 import SwiftData

@@ -95,7 +95,7 @@ class AuthViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
             guard let self = self else { return }
             
-            // Mock authentication - replace with real API
+            // Mock authentication for the 8 sample users
             if email.lowercased() == "john@example.com" && password == "demo1234" {
                 // Success!
                 let user = User.sampleUser[0]

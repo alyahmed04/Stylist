@@ -2,6 +2,8 @@
 //  UserInstance.swift
 //  Stylist
 //
+// This file is an extension of the User model class, that includes sample data on 8 unique users.
+//
 //  Created by Aly Ahmed on 11/23/25.
 //
 

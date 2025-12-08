@@ -2,7 +2,7 @@
 //  PreviewInstance.swift
 //  Stylist
 //
-// This file sets
+// This file sets up the model configuration and container that is used for the application. The file sets up the three models which include, user, clothingItem, and Style Preferences. The file also adds each one of these Models into the containers main context through the functions seen below.
 //
 //  Created by Aly Ahmed on 11/23/25.
 //
