@@ -1,6 +1,6 @@
 //
 //  AddItem.swift
-//  Sylist
+//  Stylist
 //
 //
 //  Created by Aly Ahmed on 11/17/25.

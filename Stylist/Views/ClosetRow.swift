@@ -27,11 +27,8 @@ struct ClosetRow: View {
        }
     
 
-
-    
     var body: some View {
         
-       // @Bindable var authVM = authVM
         
         //Learned how to make a copy for class objects and code snippet below from
         //https://www.hackingwithswift.com/example-code/system/how-to-copy-objects-in-swift-using-copy
