@@ -144,7 +144,7 @@ class AuthViewModel: ObservableObject {
                 self.startSession()
                 self.refreshDailyTip()
             }
-            else if email.lowercased() == "sophie@demo.com" && password == "demo1234" {
+            else if email.lowercased() == "sophie@example.com" && password == "demo1234" {
                 // Additional demo account
                 let user = User.sampleUser[6]
                 self.currentUser = user
@@ -152,7 +152,7 @@ class AuthViewModel: ObservableObject {
                 self.startSession()
                 self.refreshDailyTip()
             }
-            else if email.lowercased() == "jasmine@demo.com" && password == "demo1234" {
+            else if email.lowercased() == "jasmine@example.com" && password == "demo1234" {
                 // Additional demo account
                 let user = User.sampleUser[7]
                 self.currentUser = user
