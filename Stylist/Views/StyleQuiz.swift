@@ -28,7 +28,7 @@ struct StyleQuizView: View {
     let fitOptions = ["Tight", "Tailored", "Relaxed", "Oversized"]
     let colorChoices = ["Neutrals", "Dark tones", "Bright colors"]
     let shoppingOptions = ["Weekly", "Monthly", "Rarely"]
-    let costOptions = [" < $50", "$50-100", "$100-$500","$500+"]
+    let costOptions = [" < $50", "$50-$100", "$100-$500","$500+"]
     
     
     @State private var headerColor =
@@ -142,7 +142,7 @@ struct StyleQuizView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Outfit Ideas Based on Your Quiz")
                             .font(.headline)
-                        //Learned that Text can intpret markdown from
+                        //Learned that Text can interpret markdown from
                         //https://www.hackingwithswift.com/quick-start/swiftui/how-to-render-markdown-content-in-text
                         //Learned how to get variables to display markdown from:
                         //https://stackoverflow.com/questions/71484662/swiftui-text-markdown-support-for-string-variables-or-string-interpolation-not-w
